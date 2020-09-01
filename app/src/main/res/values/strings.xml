@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">NoPlanB</string>
+    <string name="noplanb">NoPlanB</string>
+    <string name="UpdateTask">Update Task</string>
+    <string name="AddTask">Add Task</string>
+    <string name="AddProject">Add Project</string>
+    <string name="UpdateProject">Update Project</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+</resources>
