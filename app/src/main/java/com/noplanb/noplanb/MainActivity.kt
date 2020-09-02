@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
         navController = findNavController(R.id.navHostFragment)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView.setupWithNavController(navController)

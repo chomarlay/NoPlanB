@@ -1,20 +1,46 @@
 package com.noplanb.noplanb.fragments.projects.add
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
+import kotlinx.android.synthetic.main.fragment_add_project.*
 
 class AddProjectFragment : Fragment() {
-
+    private val projectViewModel: ProjectViewModel by viewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_project, container, false)
+        val view =  inflater.inflate(R.layout.fragment_add_project, container, false)
+        setHasOptionsMenu(true)
+        return view
+
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.add_project_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId === R.id.menu_save_project) {
+            insertProjectToDb()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun insertProjectToDb() {
+        val mTitle = title_et.text.toString()
+        val mDescription = description_et.text.toString()
+        val project = Project(0,mTitle,mDescription)
+        projectViewModel.insertProject(project)
+        Toast.makeText(requireContext(),"Project saved successfully", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(R.id.action_addProjectFragment_to_projectListFragment)
+    }
 }

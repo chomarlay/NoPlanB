@@ -2,6 +2,7 @@ package com.noplanb.noplanb.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.repository.NoPlanBRepository
@@ -10,8 +11,11 @@ import kotlinx.coroutines.launch
 
 class ProjectViewModel( application: Application) : AndroidViewModel(application) {
     private val repository= NoPlanBRepository(application)
-    val getAllProjects = repository.getAllProjects
+    val getAllProjects: LiveData<List<Project>>
 
+    init {
+        getAllProjects = repository.getAllProjects
+    }
     fun insertProject (project: Project) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.insertProject(project)

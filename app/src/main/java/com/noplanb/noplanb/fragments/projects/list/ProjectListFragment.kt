@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
+import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter
 
 class ProjectListFragment : Fragment() {
     private var _binding: FragmentProjectListBinding? = null
     private val binding get() = _binding!!
 
     private val projectViewModel: ProjectViewModel by viewModels()
+    private val projectListAdapter: ProjectListAdapter by lazy { ProjectListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +27,19 @@ class ProjectListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        setupRecyclerView()
+        projectViewModel.getAllProjects.observe(viewLifecycleOwner, {
+                data->projectListAdapter.setData(data)
+            }
+        )
+
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        val recyclerView = binding.projectRecyclerView
+        recyclerView.layoutManager = LinearLayoutManager(requireActivity())
+        recyclerView.adapter = projectListAdapter
     }
 
     override fun onDestroy() {
