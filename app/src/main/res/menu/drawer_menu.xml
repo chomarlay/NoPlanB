@@ -2,12 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/taskListFragment"
-        android:title="Today"
+        android:title="@string/today"
+        android:icon="@drawable/ic_calendar"
+        />
+
+    <item
+        android:id="@+id/taskList7DaysFragment"
+        android:title="@string/next_7_days"
         android:icon="@drawable/ic_calendar"
         />
     <item
         android:id="@+id/projectListFragment"
-        android:title="Projects"
+        android:title="@string/projects"
         android:icon="@drawable/ic_projects"
         />
 

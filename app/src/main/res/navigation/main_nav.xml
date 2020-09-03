@@ -55,7 +55,9 @@
         tools:layout="@layout/fragment_add_project" >
         <action
             android:id="@+id/action_addProjectFragment_to_projectListFragment"
-            app:destination="@id/projectListFragment" />
+            app:destination="@id/projectListFragment"
+            app:popUpTo="@id/projectListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/updateProjectFragment"

@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">NoPlanB</string>
-    <string name="noplanb">NoPlanB</string>
     <string name="UpdateTask">Update Task</string>
     <string name="AddTask">Add Task</string>
     <string name="AddProject">Add Project</string>
     <string name="UpdateProject">Update Project</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="today">Today</string>
+    <string name="next_7_days">Next 7 Days</string>
+    <string name="projects">Projects</string>
+    <string name="noplanb">NoPlanB</string>
 </resources>
