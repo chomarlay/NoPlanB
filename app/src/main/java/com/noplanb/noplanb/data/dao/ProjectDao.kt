@@ -10,13 +10,13 @@ interface ProjectDao {
     fun getAllData(): LiveData<List<Project>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertData(toDoData: Project )
+    suspend fun insertData(project: Project )
 
     @Update
-    suspend fun updateData(toDoData: Project)
+    suspend fun updateData(project: Project)
 
     @Delete
-    suspend fun deleteItem(toDoData: Project)
+    suspend fun deleteItem(project: Project)
 
     @Query("DELETE FROM Project")
     suspend fun deleteAll()
