@@ -9,10 +9,12 @@ import androidx.navigation.fragment.findNavController
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
+import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_add_project.*
 
 class AddProjectFragment : Fragment() {
     private val projectViewModel: ProjectViewModel by viewModels()
+    private val sharedViewModel:SharedViewModel by lazy { SharedViewModel() }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,9 +40,14 @@ class AddProjectFragment : Fragment() {
     private fun insertProjectToDb() {
         val mTitle = title_et.text.toString()
         val mDescription = description_et.text.toString()
-        val project = Project(0,mTitle,mDescription)
-        projectViewModel.insertProject(project)
-        Toast.makeText(requireContext(),"Project saved successfully", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_addProjectFragment_to_projectListFragment)
+        if (sharedViewModel.validProjectDataFromInput(mTitle, mDescription)) {
+            val project = Project(0,mTitle,mDescription)
+            projectViewModel.insertProject(project)
+            Toast.makeText(requireContext(),"Project saved successfully", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_addProjectFragment_to_projectListFragment)
+        } else {
+            Toast.makeText(requireContext(),"Please enter Title of the project", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
