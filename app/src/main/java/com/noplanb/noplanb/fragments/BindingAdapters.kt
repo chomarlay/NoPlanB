@@ -1,9 +1,11 @@
 package com.noplanb.noplanb.fragments
 
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 
 class BindingAdapters {
     companion object{
@@ -25,6 +27,17 @@ class BindingAdapters {
                     view.findNavController().navigate(R.id.action_projectListFragment_to_addProjectFragment)
                 }
             }
+        }
+
+        @BindingAdapter("android:sendDataAndNavigateToUpdateProjectFragment")
+        @JvmStatic
+        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, navigate: Boolean) {
+            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment()
+            view.setOnClickListener {
+                view.findNavController().navigate(action)
+            }
+
+
         }
     }
 }
