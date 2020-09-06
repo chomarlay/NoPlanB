@@ -70,5 +70,8 @@
         <action
             android:id="@+id/action_updateProjectFragment_to_addTaskFragment"
             app:destination="@id/addTaskFragment" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.noplanb.noplanb.data.models.Project" />
     </fragment>
 </navigation>

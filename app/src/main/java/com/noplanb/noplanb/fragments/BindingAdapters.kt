@@ -5,6 +5,7 @@ import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 
 class BindingAdapters {
@@ -31,8 +32,8 @@ class BindingAdapters {
 
         @BindingAdapter("android:sendDataAndNavigateToUpdateProjectFragment")
         @JvmStatic
-        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, navigate: Boolean) {
-            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment()
+        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, currentItem: Project) {
+            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment(currentItem)
             view.setOnClickListener {
                 view.findNavController().navigate(action)
             }

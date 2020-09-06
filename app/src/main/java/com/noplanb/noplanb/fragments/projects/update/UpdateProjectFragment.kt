@@ -1,14 +1,26 @@
 package com.noplanb.noplanb.fragments.projects.update
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavArgs
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
+import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
+import kotlinx.android.synthetic.main.fragment_update_project.*
 
 class UpdateProjectFragment : Fragment() {
+    private val args by navArgs<UpdateProjectFragmentArgs> ()
+    private val projectViewModel: ProjectViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by lazy{ SharedViewModel()}
+
     var _binding : FragmentUpdateProjectBinding? = null
     val binding get() = _binding!!
     override fun onCreateView(
@@ -16,9 +28,35 @@ class UpdateProjectFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentUpdateProjectBinding.inflate(inflater, container, false)
+        binding.args = args
+        setHasOptionsMenu(true)
         return binding.root
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_update_project, container, false)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.update_project_fragment_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_update_project -> updateProject()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun updateProject() {
+        val mTitle = current_title_et.text.toString()
+        val mDescription = current_description_et.text.toString()
+        if (sharedViewModel.validProjectDataFromInput(mTitle, mDescription)) {
+            val project = Project(args.currentItem.id,mTitle,mDescription)
+            projectViewModel.updateProject(project)
+            findNavController().navigate(R.id.action_updateProjectFragment_to_projectListFragment)
+            Toast.makeText(requireContext(), "Project ${mTitle} updated successfully.", Toast.LENGTH_SHORT).show()
+
+        } else {
+            Toast.makeText(requireContext(), "Please enter project title.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onDestroy() {
