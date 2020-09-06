@@ -1,5 +1,7 @@
 package com.noplanb.noplanb.fragments.projects.update
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -17,7 +19,7 @@ import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
 import kotlinx.android.synthetic.main.fragment_update_project.*
 
 class UpdateProjectFragment : Fragment() {
-    private val args by navArgs<UpdateProjectFragmentArgs> ()
+    private val args by navArgs<UpdateProjectFragmentArgs> ()  // see fragment_update_project and main_nav for  currentItem args declartion
     private val projectViewModel: ProjectViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by lazy{ SharedViewModel()}
 
@@ -40,9 +42,28 @@ class UpdateProjectFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_update_project -> updateProject()
+            R.id.menu_delete_project -> confirmItemDelete()
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun confirmItemDelete() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Delete Project")
+        builder.setMessage("Do you want to delete project '${args.currentItem.title}' ?")
+        builder.setPositiveButton("Yes") {
+                //dialogInterface: DialogInterface, i: Int ->
+            _,_-> // short form to above
+            projectViewModel.deleteProject(args.currentItem)
+            findNavController().navigate(R.id.action_updateProjectFragment_to_projectListFragment)
+            Toast.makeText(requireContext(), "Project '${args.currentItem.title}' updated successfully.", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No") {
+//                dialogInterface: DialogInterface, i: Int ->
+            _,_-> //short form to above
+        }
+        builder.show()
     }
 
     private fun updateProject() {
@@ -52,7 +73,7 @@ class UpdateProjectFragment : Fragment() {
             val project = Project(args.currentItem.id,mTitle,mDescription)
             projectViewModel.updateProject(project)
             findNavController().navigate(R.id.action_updateProjectFragment_to_projectListFragment)
-            Toast.makeText(requireContext(), "Project ${mTitle} updated successfully.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Project '${mTitle}' updated successfully.", Toast.LENGTH_SHORT).show()
 
         } else {
             Toast.makeText(requireContext(), "Please enter project title.", Toast.LENGTH_SHORT).show()
