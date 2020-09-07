@@ -3,11 +3,21 @@ package com.noplanb.noplanb.data.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.ProjectWithTasks
 
 @Dao
 interface ProjectDao {
+
     @Query("SELECT * FROM Project")
     fun getAllData(): LiveData<List<Project>>
+
+    @Transaction
+    @Query("SELECT * FROM Project")
+    fun getProjectsWithTasks(): LiveData<List<ProjectWithTasks>>
+
+    @Transaction
+    @Query("SELECT * FROM Project where id=:projectId ")
+    fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(project: Project )
