@@ -21,7 +21,6 @@ class AddTaskFragment : Fragment() {
         _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
-        val projects = projectViewModel.getAllProjects.value
         return binding.root
     }
 

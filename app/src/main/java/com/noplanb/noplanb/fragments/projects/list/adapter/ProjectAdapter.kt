@@ -11,6 +11,7 @@ class ProjectAdapter(context: Context, textViewResourceId: Int, private val valu
     override fun getCount() = values.size
     override fun getItem(position: Int) = values[position]
     override fun getItemId(position: Int) = position.toLong()
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val label = super.getView(position, convertView, parent) as TextView
         label.text = values[position].title

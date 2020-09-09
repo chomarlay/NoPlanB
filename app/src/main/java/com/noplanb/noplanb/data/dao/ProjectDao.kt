@@ -11,9 +11,6 @@ interface ProjectDao {
     @Query("SELECT * FROM Project")
     fun getAllData(): LiveData<List<Project>>
 
-    @Query("SELECT * FROM Project")
-    fun getProjects(): List<Project>
-
     @Transaction
     @Query("SELECT * FROM Project")
     fun getProjectsWithTasks(): LiveData<List<ProjectWithTasks>>

@@ -9,6 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
+import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 
 class BindingAdapters {
     companion object{
@@ -47,7 +48,8 @@ class BindingAdapters {
             if (projs == null) {
                 return
             }
-            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
+//            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
+            val spinnerAdapter = ProjectAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
             view.adapter = spinnerAdapter
 
         }

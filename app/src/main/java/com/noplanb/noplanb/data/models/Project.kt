@@ -12,9 +12,4 @@ data class Project(
     var id: Int,
     var title: String,
     var description: String
-): Parcelable {
-
-    override fun toString(): String {
-        return title
-    }
-}
+): Parcelable
