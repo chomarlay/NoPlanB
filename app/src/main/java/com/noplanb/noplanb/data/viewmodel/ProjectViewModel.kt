@@ -16,6 +16,7 @@ class ProjectViewModel( application: Application) : AndroidViewModel(application
     init {
         getAllProjects = repository.getAllProjects
     }
+
     fun insertProject (project: Project) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.insertProject(project)

@@ -10,4 +10,9 @@
     <string name="next_7_days">Next 7 Days</string>
     <string name="projects">Projects</string>
     <string name="noplanb">NoPlanB</string>
+    <string-array name="priorities">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>

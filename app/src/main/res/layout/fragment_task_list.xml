@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         tools:context=".fragments.tasks.list.TaskListFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/taskRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"

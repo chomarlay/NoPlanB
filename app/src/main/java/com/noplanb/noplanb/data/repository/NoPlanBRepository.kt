@@ -19,6 +19,10 @@ class NoPlanBRepository(context: Context) {
         projectDao.getProjectWithTasks(projectId)
     }
 
+    suspend fun getProjects(): List<Project> {
+        return projectDao.getProjects()
+    }
+
     suspend fun insertProject(project: Project) {
         projectDao.insertData(project)
     }

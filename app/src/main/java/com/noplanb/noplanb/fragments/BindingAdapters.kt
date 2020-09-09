@@ -1,5 +1,7 @@
 package com.noplanb.noplanb.fragments
 
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.navigation.findNavController
@@ -38,6 +40,15 @@ class BindingAdapters {
                 view.findNavController().navigate(action)
             }
 
+        }
+        @BindingAdapter("android:projectsForSpinner")
+        @JvmStatic
+        fun getProjectsForSpinner(view: Spinner, projs: List<Project>?) {
+            if (projs == null) {
+                return
+            }
+            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
+            view.adapter = spinnerAdapter
 
         }
     }
