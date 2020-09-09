@@ -7,6 +7,10 @@
         <variable
             name="projectViewModel"
             type="com.noplanb.noplanb.data.viewmodel.ProjectViewModel" />
+
+        <variable
+            name="taskViewModel"
+            type="com.noplanb.noplanb.data.viewmodel.TaskViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
