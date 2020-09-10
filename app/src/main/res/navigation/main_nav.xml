@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/taskListFragment">
+    app:startDestination="@id/projectListFragment">
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.noplanb.noplanb.fragments.tasks.list.TaskListFragment"
-        android:label="Today's Tasks"
+        android:label="NoPlanB Tasks"
         tools:layout="@layout/fragment_task_list"
     >
         <action
@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_taskListFragment_to_updateTaskFragment"
             app:destination="@id/updateTaskFragment" />
+        <argument
+            android:name="currentItem"
+            app:argType="com.noplanb.noplanb.data.models.Project" />
     </fragment>
     <fragment
         android:id="@+id/projectListFragment"
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_projectListFragment_to_updateProjectFragment"
             app:destination="@id/updateProjectFragment" />
+        <action
+            android:id="@+id/action_projectListFragment_to_taskListFragment"
+            app:destination="@id/taskListFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
@@ -37,7 +43,9 @@
         tools:layout="@layout/fragment_add_task" >
         <action
             android:id="@+id/action_addTaskFragment_to_taskListFragment"
-            app:destination="@id/taskListFragment" />
+            app:destination="@id/taskListFragment"
+            app:popUpTo="@id/taskListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/updateTaskFragment"

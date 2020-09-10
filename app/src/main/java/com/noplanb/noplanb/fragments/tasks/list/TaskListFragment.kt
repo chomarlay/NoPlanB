@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
@@ -14,6 +15,7 @@ import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 
 class TaskListFragment : Fragment() {
+    private val args by navArgs<TaskListFragmentArgs> ()
     private var _binding: FragmentTaskListBinding? = null
     private val binding get()=_binding!!
 
@@ -26,11 +28,15 @@ class TaskListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
+//        binding.args = args
         binding.lifecycleOwner = this
 
         setupRecyclerView()
-
-        projectViewModel.getProjectWithTasks(1).observe(viewLifecycleOwner, { data ->
+        var projectId = 1
+        if (args != null) {
+            projectId = args.currentItem.id
+        }
+        projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
             taskListAdapter.setData(data)
              }
         )

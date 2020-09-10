@@ -10,6 +10,8 @@ import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
+import com.noplanb.noplanb.fragments.tasks.add.AddTaskFragmentDirections
+import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 
 class BindingAdapters {
     companion object{
@@ -42,14 +44,24 @@ class BindingAdapters {
             }
 
         }
+
+        @BindingAdapter("android:sendDataAndNavigateToTaskListFragment")
+        @JvmStatic
+        fun sendDataAndNavigateToTaskListFragment(view: ConstraintLayout, currentItem: Project) {
+            val action = ProjectListFragmentDirections.actionProjectListFragmentToTaskListFragment(currentItem)
+            view.setOnClickListener {
+                view.findNavController().navigate(action)
+            }
+        }
+
         @BindingAdapter("android:projectsForSpinner")
         @JvmStatic
-        fun getProjectsForSpinner(view: Spinner, projs: List<Project>?) {
-            if (projs == null) {
+        fun getProjectsForSpinner(view: Spinner, projects: List<Project>?) {
+            if (projects == null) {
                 return
             }
 //            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
-            val spinnerAdapter = ProjectAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
+            val spinnerAdapter = ProjectAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, projects)
             view.adapter = spinnerAdapter
 
         }

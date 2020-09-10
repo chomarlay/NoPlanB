@@ -21,9 +21,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
         navController = findNavController(R.id.navHostFragment)
         drawerLayout = findViewById(R.id.drawer_layout)
         navigationView.setupWithNavController(navController)
@@ -32,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
 
     }
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.navHostFragment)
