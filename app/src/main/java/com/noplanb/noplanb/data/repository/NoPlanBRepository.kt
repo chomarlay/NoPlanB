@@ -1,8 +1,10 @@
 package com.noplanb.noplanb.data.repository
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.noplanb.noplanb.data.NoPlanBDatabase
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
 
 class NoPlanBRepository(context: Context) {
@@ -15,8 +17,8 @@ class NoPlanBRepository(context: Context) {
     val getAllProjects =  projectDao.getAllData()
     val getAllProjectsWithTasks = projectDao.getProjectsWithTasks()
 
-    fun getProjectWithTasks(projectId: Int)  {
-        projectDao.getProjectWithTasks(projectId)
+    fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
+        return projectDao.getProjectWithTasks(projectId)
     }
 
     suspend fun insertProject(project: Project) {

@@ -12,11 +12,6 @@ import kotlinx.coroutines.launch
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val repository= NoPlanBRepository(application)
-//    val getAllProjects: LiveData<List<Project>>
-//
-//    init {
-//        getAllProjects = repository.getAllProjects
-//    }
 
     fun insertTask (task: Task) {
         viewModelScope.launch (Dispatchers.IO) {

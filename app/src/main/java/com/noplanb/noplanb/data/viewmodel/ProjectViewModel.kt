@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.repository.NoPlanBRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +18,9 @@ class ProjectViewModel( application: Application) : AndroidViewModel(application
         getAllProjects = repository.getAllProjects
     }
 
+    fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
+        return repository.getProjectWithTasks(projectId)
+    }
     fun insertProject (project: Project) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.insertProject(project)
