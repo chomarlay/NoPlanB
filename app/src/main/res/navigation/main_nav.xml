@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/projectListFragment">
+    app:startDestination="@id/taskListFragment">
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.noplanb.noplanb.fragments.tasks.list.TaskListFragment"
-        android:label="NoPlanB Tasks"
+        android:label="abcd"
         tools:layout="@layout/fragment_task_list"
     >
         <action
@@ -17,9 +17,14 @@
         <action
             android:id="@+id/action_taskListFragment_to_updateTaskFragment"
             app:destination="@id/updateTaskFragment" />
+        <action
+            android:id="@+id/action_taskListFragment_to_projectListFragment"
+            app:destination="@id/projectListFragment" />
         <argument
-            android:name="currentItem"
-            app:argType="com.noplanb.noplanb.data.models.Project" />
+            android:name="projectId"
+            app:argType="integer"
+            android:defaultValue="1" />
+
     </fragment>
     <fragment
         android:id="@+id/projectListFragment"
@@ -77,9 +82,6 @@
             app:destination="@id/projectListFragment"
             app:popUpTo="@id/projectListFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_updateProjectFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
         <argument
             android:name="currentItem"
             app:argType="com.noplanb.noplanb.data.models.Project" />

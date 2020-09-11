@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.R
@@ -32,10 +33,8 @@ class TaskListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         setupRecyclerView()
-        var projectId = 1
-        if (args != null) {
-            projectId = args.currentItem.id
-        }
+        var projectId = args.projectId
+
         projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
             taskListAdapter.setData(data)
              }

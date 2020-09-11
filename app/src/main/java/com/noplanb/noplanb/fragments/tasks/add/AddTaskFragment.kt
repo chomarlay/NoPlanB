@@ -61,7 +61,7 @@ class AddTaskFragment : Fragment() {
                 "Successfully saved task '${mTitle}' in project '${mProject.title}'",
                 Toast.LENGTH_SHORT
             ).show()
-            val action = AddTaskFragmentDirections.actionAddTaskFragmentToTaskListFragment(mProject)
+            val action = AddTaskFragmentDirections.actionAddTaskFragmentToTaskListFragment(mProject.id)
             findNavController().navigate(action)
 
         } else {
