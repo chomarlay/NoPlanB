@@ -16,6 +16,7 @@ import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
+import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 import kotlinx.android.synthetic.main.fragment_update_project.*
 
 class UpdateProjectFragment : Fragment() {
@@ -56,8 +57,8 @@ class UpdateProjectFragment : Fragment() {
                 //dialogInterface: DialogInterface, i: Int ->
             _,_-> // short form to above
             projectViewModel.deleteProject(args.currentItem)
-            findNavController().navigate(R.id.action_updateProjectFragment_to_projectListFragment)
-            Toast.makeText(requireContext(), "Project '${args.currentItem.title}' updated successfully.", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_updateProjectFragment_to_taskListFragment)
+            Toast.makeText(requireContext(), "Project '${args.currentItem.title}' delete successfully.", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") {
 //                dialogInterface: DialogInterface, i: Int ->
@@ -72,7 +73,11 @@ class UpdateProjectFragment : Fragment() {
         if (sharedViewModel.validProjectDataFromInput(mTitle, mDescription)) {
             val project = Project(args.currentItem.id,mTitle,mDescription)
             projectViewModel.updateProject(project)
-            findNavController().navigate(R.id.action_updateProjectFragment_to_projectListFragment)
+//            findNavController().navigate(R.id.action_updateProjectFragment_to_taskListFragment)
+            val action = UpdateProjectFragmentDirections.actionUpdateProjectFragmentToTaskListFragment(
+                args.currentItem.id, mTitle
+            )
+            findNavController().navigate(action)
             Toast.makeText(requireContext(), "Project '${mTitle}' updated successfully.", Toast.LENGTH_SHORT).show()
 
         } else {

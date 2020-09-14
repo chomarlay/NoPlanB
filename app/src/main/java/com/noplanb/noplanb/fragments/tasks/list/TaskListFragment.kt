@@ -1,17 +1,19 @@
 package com.noplanb.noplanb.fragments.tasks.list
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
+import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 import kotlinx.android.synthetic.main.task_row.*
@@ -23,6 +25,7 @@ class TaskListFragment : Fragment() {
 
     private val projectViewModel: ProjectViewModel by viewModels()
     private val taskListAdapter: TaskListAdapter by lazy { TaskListAdapter() }
+    private var currentProject: ProjectWithTasks? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,14 +37,29 @@ class TaskListFragment : Fragment() {
 
         setupRecyclerView()
         var projectId = args.projectId
+        setHasOptionsMenu(true)
 
         projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
             taskListAdapter.setData(data)
+            currentProject = data
              }
         )
         return binding.root
     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.task_list_fragment_menu, menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.menu_edit_project) {
+            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateProjectFragment(
+                currentProject!!.project
+            )
+            findNavController().navigate(action)
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
     private fun setupRecyclerView() {
         var recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())

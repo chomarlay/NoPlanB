@@ -21,6 +21,7 @@ class ProjectViewModel( application: Application) : AndroidViewModel(application
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
         return repository.getProjectWithTasks(projectId)
     }
+
     fun insertProject (project: Project) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.insertProject(project)

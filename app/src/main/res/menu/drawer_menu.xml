@@ -7,7 +7,7 @@
         android:icon="@drawable/ic_default_project"
         />
     <item
-        android:id="@+id/taskListTodayFragment"
+        android:id="@+id/todayTaskListFragment"
         android:title="@string/today"
         android:icon="@drawable/ic_calendar"
         />

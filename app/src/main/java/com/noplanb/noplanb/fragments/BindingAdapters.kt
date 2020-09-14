@@ -35,15 +35,15 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter("android:sendDataAndNavigateToUpdateProjectFragment")
-        @JvmStatic
-        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, currentItem: Project) {
-            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment(currentItem)
-            view.setOnClickListener {
-                view.findNavController().navigate(action)
-            }
-
-        }
+//        @BindingAdapter("android:sendDataAndNavigateToUpdateProjectFragment")
+//        @JvmStatic
+//        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, currentItem: Project) {
+//            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment(currentItem)
+//            view.setOnClickListener {
+//                view.findNavController().navigate(action)
+//            }
+//
+//        }
 
         @BindingAdapter("android:sendDataAndNavigateToTaskListFragment")
         @JvmStatic
