@@ -14,6 +14,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
+import kotlinx.android.synthetic.main.task_row.*
 
 class TaskListFragment : Fragment() {
     private val args by navArgs<TaskListFragmentArgs> ()
@@ -29,7 +30,6 @@ class TaskListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentTaskListBinding.inflate(inflater, container, false)
-//        binding.args = args
         binding.lifecycleOwner = this
 
         setupRecyclerView()

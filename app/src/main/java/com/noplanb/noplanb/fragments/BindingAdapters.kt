@@ -47,8 +47,8 @@ class BindingAdapters {
 
         @BindingAdapter("android:sendDataAndNavigateToTaskListFragment")
         @JvmStatic
-        fun sendDataAndNavigateToTaskListFragment(view: ConstraintLayout, projectId: Int) {
-            val action = ProjectListFragmentDirections.actionProjectListFragmentToTaskListFragment(projectId)
+        fun sendDataAndNavigateToTaskListFragment(view: ConstraintLayout, project: Project) {
+            val action = ProjectListFragmentDirections.actionProjectListFragmentToTaskListFragment(project.id, project.title)
             view.setOnClickListener {
                 view.findNavController().navigate(action)
             }

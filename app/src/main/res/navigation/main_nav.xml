@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/taskListFragment">
+    app:startDestination="@id/projectListFragment">
 
     <fragment
         android:id="@+id/taskListFragment"
         android:name="com.noplanb.noplanb.fragments.tasks.list.TaskListFragment"
-        android:label="abcd"
+        android:label="{labelText}"
         tools:layout="@layout/fragment_task_list"
     >
         <action
@@ -24,6 +24,11 @@
             android:name="projectId"
             app:argType="integer"
             android:defaultValue="1" />
+
+        <argument
+            android:name="labelText"
+            app:argType="string"
+            android:defaultValue="NoPlanB" />
 
     </fragment>
     <fragment
