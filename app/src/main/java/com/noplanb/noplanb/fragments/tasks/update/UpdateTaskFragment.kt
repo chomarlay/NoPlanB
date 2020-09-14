@@ -14,10 +14,7 @@ import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
-import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
 import com.noplanb.noplanb.databinding.FragmentUpdateTaskBinding
-import com.noplanb.noplanb.fragments.projects.update.UpdateProjectFragmentArgs
-import com.noplanb.noplanb.fragments.tasks.add.AddTaskFragmentDirections
 import kotlinx.android.synthetic.main.fragment_add_task.*
 
 class UpdateTaskFragment : Fragment() {
@@ -33,8 +30,6 @@ class UpdateTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_update_task, container, false)
-
         _binding = FragmentUpdateTaskBinding.inflate(inflater, container, false)
         binding.args = args
         binding.lifecycleOwner = this
@@ -79,16 +74,15 @@ class UpdateTaskFragment : Fragment() {
 
     private fun confirmItemDelete() {
         val builder = AlertDialog.Builder(requireContext())
-        val mProject: Project = project_spinner.selectedItem as Project
         builder.setTitle("Delete Task")
-        builder.setMessage("Do you want to delete task '${args.currentItem.title}' ?")
+        builder.setMessage("Do you want to delete task '${args.currentItem.title}' from ${args.currentProject.title} ?")
         builder.setPositiveButton("Yes") {
             //dialogInterface: DialogInterface, i: Int ->
                 _,_-> // short form to above
             taskViewModel.deleteTask(args.currentItem)
-            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(args.currentItem.projectId, mProject.title)
+            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(args.currentItem.projectId, args.currentProject.title)
             findNavController().navigate(action)
-            Toast.makeText(requireContext(), "Task '${args.currentItem.title}' deleted successfully.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Task '${args.currentItem.title}' deleted successfully from ${args.currentProject.title}", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") {
 //                dialogInterface: DialogInterface, i: Int ->

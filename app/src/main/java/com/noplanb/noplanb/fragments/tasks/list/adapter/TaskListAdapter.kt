@@ -6,9 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
-import com.noplanb.noplanb.databinding.ProjectRowBinding
 import com.noplanb.noplanb.databinding.TaskRowBinding
-import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter
+
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
     var projectWithTasks: ProjectWithTasks? = null
@@ -26,14 +25,14 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListAdapter.MyViewHolder {
-        return TaskListAdapter.MyViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        return MyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: TaskListAdapter.MyViewHolder, position: Int) {
-        var tasks = projectWithTasks?.tasks
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+        val tasks = projectWithTasks?.tasks
         if (tasks != null) {
-            var currentItem = tasks[position]
+            val currentItem = tasks[position]
             holder.bind(projectWithTasks?.project, currentItem)
         }
 

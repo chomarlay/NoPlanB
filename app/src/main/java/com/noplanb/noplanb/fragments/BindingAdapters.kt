@@ -1,6 +1,5 @@
 package com.noplanb.noplanb.fragments
 
-import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -11,7 +10,6 @@ import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
-import com.noplanb.noplanb.fragments.tasks.add.AddTaskFragmentDirections
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 
 class BindingAdapters {
@@ -36,10 +34,10 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter("android:sendDataAndNavigateToUpdateTaskFragment")
+        @BindingAdapter(value=["android:sendTaskToUpdateTaskFragment", "android:sendProjectToUpdateTaskFragment"], requireAll = false )
         @JvmStatic
-        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: Task) {
-            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem)
+        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: Task, currentProject: Project) {
+            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem, currentProject)
             view.setOnClickListener {
                 view.findNavController().navigate(action)
             }

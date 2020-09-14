@@ -70,6 +70,9 @@
         <argument
             android:name="currentItem"
             app:argType="com.noplanb.noplanb.data.models.Task" />
+        <argument
+            android:name="currentProject"
+            app:argType="com.noplanb.noplanb.data.models.Project" />
     </fragment>
     <fragment
         android:id="@+id/addProjectFragment"
