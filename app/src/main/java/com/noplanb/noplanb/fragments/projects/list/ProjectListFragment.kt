@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter

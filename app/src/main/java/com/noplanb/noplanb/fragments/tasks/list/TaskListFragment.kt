@@ -2,10 +2,8 @@ package com.noplanb.noplanb.fragments.tasks.list
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +11,7 @@ import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
-import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
-
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
-import kotlinx.android.synthetic.main.task_row.*
 
 class TaskListFragment : Fragment() {
     private val args by navArgs<TaskListFragmentArgs> ()
@@ -37,7 +32,8 @@ class TaskListFragment : Fragment() {
 
         setupRecyclerView()
         var projectId = args.projectId
-        setHasOptionsMenu(true)
+
+        setHasOptionsMenu(projectId != 1)
 
         projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
             taskListAdapter.setData(data)

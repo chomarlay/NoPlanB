@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.tasks.update.UpdateTaskFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="args"
+            type="com.noplanb.noplanb.fragments.tasks.update.UpdateTaskFragmentArgs" />
+
+        <variable
+            name="projectViewModel"
+            type="com.noplanb.noplanb.data.viewmodel.ProjectViewModel" />
+
+        <variable
+            name="taskViewModel"
+            type="com.noplanb.noplanb.data.viewmodel.TaskViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="UPDATE TASKS" />
+        tools:context=".fragments.tasks.update.UpdateTaskFragment">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <EditText
+            android:id="@+id/task_title_et"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:hint="Title"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@{args.currentItem.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/task_description_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/custom_input"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:minLines="4"
+            android:hint="Description"
+            android:text="@{args.currentItem.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/task_title_et"
+            app:layout_constraintTop_toBottomOf="@+id/task_title_et" />
+
+        <Spinner
+            android:id="@+id/project_spinner"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            android:projectsForSpinner="@{projectViewModel.getAllProjects}"
+            android:selectedProjectForSpinner="@{args.currentItem.projectId}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/task_description_et"
+            app:layout_constraintTop_toBottomOf="@+id/task_description_et" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

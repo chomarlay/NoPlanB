@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/menu_update_project"
-        android:title="@string/UpdateProject"
+    <item android:id="@+id/menu_update_task"
+        android:title="@string/UpdateTask"
         android:icon="@drawable/ic_done"
         android:iconTint="@color/white"
         app:showAsAction="always"
         />
 
-    <item android:id="@+id/menu_add_task"
-        android:title="@string/AddTask"
-        android:icon="@drawable/ic_add_task"
-        android:iconTint="@color/white"
-        app:showAsAction="always"
-        />
-
-    <item android:id="@+id/menu_delete_project"
-        android:title="@string/delete_project"
+    <item android:id="@+id/menu_delete_task"
+        android:title="@string/delete_task"
         android:icon="@drawable/ic_delete"
         android:iconTint="@color/white"
         app:showAsAction="always"

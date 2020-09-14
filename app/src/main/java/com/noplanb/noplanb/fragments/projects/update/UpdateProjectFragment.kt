@@ -1,13 +1,11 @@
 package com.noplanb.noplanb.fragments.projects.update
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavArgs
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
@@ -16,7 +14,6 @@ import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
-import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 import kotlinx.android.synthetic.main.fragment_update_project.*
 
 class UpdateProjectFragment : Fragment() {

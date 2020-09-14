@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.add.AddTaskFragmentDirections
@@ -35,15 +36,15 @@ class BindingAdapters {
             }
         }
 
-//        @BindingAdapter("android:sendDataAndNavigateToUpdateProjectFragment")
-//        @JvmStatic
-//        fun sendDataAndNavigateToUpdateProjectFragment(view: ConstraintLayout, currentItem: Project) {
-//            val action = ProjectListFragmentDirections.actionProjectListFragmentToUpdateProjectFragment(currentItem)
-//            view.setOnClickListener {
-//                view.findNavController().navigate(action)
-//            }
-//
-//        }
+        @BindingAdapter("android:sendDataAndNavigateToUpdateTaskFragment")
+        @JvmStatic
+        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: Task) {
+            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem)
+            view.setOnClickListener {
+                view.findNavController().navigate(action)
+            }
+
+        }
 
         @BindingAdapter("android:sendDataAndNavigateToTaskListFragment")
         @JvmStatic
@@ -54,16 +55,28 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter("android:projectsForSpinner")
+        @BindingAdapter(value = ["android:projectsForSpinner", "android:selectedProjectForSpinner"], requireAll = false)
         @JvmStatic
-        fun getProjectsForSpinner(view: Spinner, projects: List<Project>?) {
+        fun getProjectsForSpinner(view: Spinner, projects: List<Project>?, selectedProjectId: Int) {
             if (projects == null) {
                 return
             }
 //            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
             val spinnerAdapter = ProjectAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, projects)
             view.adapter = spinnerAdapter
+            setCurrentSelection(view, selectedProjectId)
 
+        }
+
+        private fun setCurrentSelection(spinner: Spinner, selectedProjectId: Int?): Boolean {
+            for (index in 0 until spinner.adapter.count) {
+                val currentItem = spinner.getItemAtPosition(index) as Project
+                if (currentItem.id == selectedProjectId) {
+                    spinner.setSelection(index)
+                    return true
+                }
+            }
+            return false
         }
     }
 }

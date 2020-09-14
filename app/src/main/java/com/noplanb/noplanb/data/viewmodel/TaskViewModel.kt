@@ -19,13 +19,13 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun updateProject (task: Task) {
+    fun updateTask (task: Task) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.updateTask(task)
         }
     }
 
-    fun deleteProject (task: Task) {
+    fun deleteTask (task: Task) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.deleteTask(task)
         }

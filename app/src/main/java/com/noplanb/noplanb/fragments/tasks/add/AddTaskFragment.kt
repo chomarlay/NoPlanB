@@ -3,10 +3,8 @@ package com.noplanb.noplanb.fragments.tasks.add
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
