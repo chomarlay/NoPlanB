@@ -31,7 +31,7 @@ class TaskListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         setupRecyclerView()
-        var projectId = args.projectId
+        val projectId = args.projectId
 
         setHasOptionsMenu(projectId != 1)
 
@@ -40,6 +40,12 @@ class TaskListFragment : Fragment() {
             currentProject = data
              }
         )
+
+        binding.addTaskBtn.setOnClickListener{
+           val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId)
+           findNavController().navigate(action)
+        }
+
         return binding.root
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -57,7 +63,7 @@ class TaskListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
     private fun setupRecyclerView() {
-        var recyclerView = binding.taskRecyclerView
+        val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
     }

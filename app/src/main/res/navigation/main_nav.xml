@@ -56,6 +56,10 @@
             app:destination="@id/taskListFragment"
             app:popUpTo="@id/taskListFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="currentProjectId"
+            app:argType="integer"
+            android:defaultValue="1"/>
     </fragment>
     <fragment
         android:id="@+id/updateTaskFragment"

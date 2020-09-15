@@ -14,15 +14,6 @@ import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 
 class BindingAdapters {
     companion object{
-        @BindingAdapter ("android:navigateToAddTaskFragment")
-        @JvmStatic
-        fun navigateToAddTaskFragment(view: FloatingActionButton, navigate:Boolean) {
-            view.setOnClickListener{
-                if (navigate) {
-                    view.findNavController().navigate(R.id.action_taskListFragment_to_addTaskFragment)
-                }
-            }
-        }
 
         @BindingAdapter("android:navigateToAddProjectFragment")
         @JvmStatic

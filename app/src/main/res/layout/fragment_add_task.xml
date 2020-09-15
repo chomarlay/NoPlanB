@@ -5,6 +5,10 @@
 
     <data>
         <variable
+            name="args"
+            type="com.noplanb.noplanb.fragments.tasks.add.AddTaskFragmentArgs" />
+
+        <variable
             name="projectViewModel"
             type="com.noplanb.noplanb.data.viewmodel.ProjectViewModel" />
 
@@ -62,6 +66,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:projectsForSpinner="@{projectViewModel.getAllProjects}"
+            android:selectedProjectForSpinner="@{args.currentProjectId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/task_description_et"

@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.Task
@@ -16,6 +17,7 @@ import com.noplanb.noplanb.databinding.FragmentAddTaskBinding
 import kotlinx.android.synthetic.main.fragment_add_task.*
 
 class AddTaskFragment : Fragment() {
+    private val args by navArgs<AddTaskFragmentArgs> ()
     private var _binding: FragmentAddTaskBinding? = null
     private val binding get() = _binding!!
     private val projectViewModel: ProjectViewModel by viewModels()
@@ -27,6 +29,7 @@ class AddTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAddTaskBinding.inflate(inflater, container, false)
+        binding.args = args
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
