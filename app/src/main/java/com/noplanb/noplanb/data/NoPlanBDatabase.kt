@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.noplanb.noplanb.data.dao.ProjectDao
 import com.noplanb.noplanb.data.dao.TaskDao
 import com.noplanb.noplanb.data.models.Project
@@ -11,6 +12,7 @@ import com.noplanb.noplanb.data.models.Task
 
 
 @Database(entities = [Project::class, Task::class], version = 1, exportSchema = false)
+@TypeConverters (DateTypeConverter::class)
 abstract class NoPlanBDatabase: RoomDatabase() {
     abstract fun projectDao(): ProjectDao
     abstract fun taskDao(): TaskDao

@@ -56,7 +56,7 @@ class UpdateTaskFragment : Fragment() {
         val mDescription = task_description_et.text.toString()
         val mProject: Project = project_spinner.selectedItem as Project
         if (sharedViewModel.validTaskDataFromInput(mProject, mTitle, mDescription)) {
-            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription)
+            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, null)
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),
