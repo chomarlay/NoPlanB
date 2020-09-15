@@ -1,6 +1,7 @@
 package com.noplanb.noplanb.fragments.tasks.update
 
 import android.app.AlertDialog
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -16,13 +17,16 @@ import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateTaskBinding
 import kotlinx.android.synthetic.main.fragment_add_task.*
+import java.util.*
 
 class UpdateTaskFragment : Fragment() {
     private val args by navArgs<UpdateTaskFragmentArgs> ()
     private val projectViewModel: ProjectViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by lazy{ SharedViewModel() }
     private val taskViewModel: TaskViewModel by viewModels()
-
+    private var myDay: Int =0
+    private var myMonth: Int = 0
+    private var myYear: Int =0
     var _binding : FragmentUpdateTaskBinding? = null
     val binding get() = _binding!!
     override fun onCreateView(
@@ -35,8 +39,45 @@ class UpdateTaskFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.setTime(args.currentItem.dueDate!!)
+        myDay = calendar.get(Calendar.DAY_OF_MONTH)
+        myMonth = calendar.get(Calendar.MONTH)
+        myYear = calendar.get(Calendar.YEAR)
+        setDueDate(
+            myYear,
+            myMonth,
+            myDay,
+
+
+        )
+        binding.dueDateBtn.setOnClickListener {
+
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                val dueDatePicker = DatePickerDialog(requireContext())
+                dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth ->
+                    setDueDate(
+                        year,
+                        month,
+                        dayOfMonth
+                    )
+                }
+                dueDatePicker.updateDate(myYear, myMonth, myDay)
+                dueDatePicker.show()
+            } else {
+                Toast.makeText(requireContext(), "PICK DATE", Toast.LENGTH_SHORT).show()
+            }
+        }
         setHasOptionsMenu(true)
         return binding.root
+    }
+    private fun setDueDate(year: Int, month: Int, dayOfMonth: Int) {
+        binding.dueDateBtn.setText("${dayOfMonth}-${month+1}-${year}")
+        myDay = dayOfMonth
+        myMonth = month
+        myYear = year
+        binding.dueDateEt.setText("${myDay}/${myMonth+1}/${myYear}")
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -55,8 +96,10 @@ class UpdateTaskFragment : Fragment() {
         val mTitle = task_title_et.text.toString()
         val mDescription = task_description_et.text.toString()
         val mProject: Project = project_spinner.selectedItem as Project
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.set(myYear, myMonth, myDay)
         if (sharedViewModel.validTaskDataFromInput(mProject, mTitle, mDescription)) {
-            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, null)
+            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, calendar.time)
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),

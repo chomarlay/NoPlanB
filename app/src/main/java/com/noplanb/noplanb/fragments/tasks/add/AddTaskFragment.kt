@@ -27,7 +27,7 @@ class AddTaskFragment : Fragment() {
     private val projectViewModel: ProjectViewModel by viewModels()
     private val taskViewModel: TaskViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by lazy { SharedViewModel() }
-//    private var dueDatePicker: DatePickerDialog? = null
+
     private var myDay: Int =0
     private var myMonth: Int = 0
     private var myYear: Int =0
@@ -83,10 +83,9 @@ class AddTaskFragment : Fragment() {
         myDay = dayOfMonth
         myMonth = month
         myYear = year
-//        binding.dueDateEt = "${dayOfMonth}-${month+1}-${year}"
         binding.dueDateEt.setText("${myDay}/${myMonth+1}/${myYear}")
-
     }
+
     private fun saveTaskToDb() {
         val mTitle = task_title_et.text.toString()
         val mDescription = task_description_et.text.toString()
