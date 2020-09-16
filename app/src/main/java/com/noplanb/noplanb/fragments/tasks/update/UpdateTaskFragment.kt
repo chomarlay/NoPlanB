@@ -24,9 +24,10 @@ class UpdateTaskFragment : Fragment() {
     private val projectViewModel: ProjectViewModel by viewModels()
     private val sharedViewModel: SharedViewModel by lazy{ SharedViewModel() }
     private val taskViewModel: TaskViewModel by viewModels()
-    private var myDay: Int =0
-    private var myMonth: Int = 0
-    private var myYear: Int =0
+    private var saveDay: Int =0
+    private var saveMonth: Int = 0
+    private var saveYear: Int =0
+
     var _binding : FragmentUpdateTaskBinding? = null
     val binding get() = _binding!!
     override fun onCreateView(
@@ -40,19 +41,18 @@ class UpdateTaskFragment : Fragment() {
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
         val calendar: Calendar = Calendar.getInstance()
-        calendar.setTime(args.currentItem.dueDate!!)
-        myDay = calendar.get(Calendar.DAY_OF_MONTH)
-        myMonth = calendar.get(Calendar.MONTH)
-        myYear = calendar.get(Calendar.YEAR)
-        setDueDate(
-            myYear,
-            myMonth,
-            myDay,
-
-
-        )
+        if (args.currentItem.dueDate != null) {
+            calendar.setTime(args.currentItem.dueDate!!)
+            saveDay = calendar.get(Calendar.DAY_OF_MONTH)
+            saveMonth = calendar.get(Calendar.MONTH)
+            saveYear = calendar.get(Calendar.YEAR)
+            setDueDate(
+                saveYear,
+                saveMonth,
+                saveDay,
+            )
+        }
         binding.dueDateBtn.setOnClickListener {
-
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
                 dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth ->
@@ -62,7 +62,7 @@ class UpdateTaskFragment : Fragment() {
                         dayOfMonth
                     )
                 }
-                dueDatePicker.updateDate(myYear, myMonth, myDay)
+                dueDatePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 dueDatePicker.show()
             } else {
                 Toast.makeText(requireContext(), "PICK DATE", Toast.LENGTH_SHORT).show()
@@ -73,11 +73,9 @@ class UpdateTaskFragment : Fragment() {
     }
     private fun setDueDate(year: Int, month: Int, dayOfMonth: Int) {
         binding.dueDateBtn.setText("${dayOfMonth}-${month+1}-${year}")
-        myDay = dayOfMonth
-        myMonth = month
-        myYear = year
-        binding.dueDateEt.setText("${myDay}/${myMonth+1}/${myYear}")
-
+        saveDay = dayOfMonth
+        saveMonth = month
+        saveYear = year
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -96,10 +94,9 @@ class UpdateTaskFragment : Fragment() {
         val mTitle = task_title_et.text.toString()
         val mDescription = task_description_et.text.toString()
         val mProject: Project = project_spinner.selectedItem as Project
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(myYear, myMonth, myDay)
+
         if (sharedViewModel.validTaskDataFromInput(mProject, mTitle, mDescription)) {
-            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, calendar.time)
+            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),
@@ -115,6 +112,14 @@ class UpdateTaskFragment : Fragment() {
         }
     }
 
+    private fun setDueDateToSave (year: Int, month: Int, dayOfMonth: Int): Date? {
+        if (year == 0) {
+            return null
+        }
+        val calendar: Calendar = Calendar.getInstance()
+        calendar.set(year, month, dayOfMonth)
+        return calendar.time
+    }
     private fun confirmItemDelete() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Task")

@@ -1,6 +1,6 @@
 package com.noplanb.noplanb.fragments
 
-import android.widget.EditText
+
 import android.widget.Spinner
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
@@ -12,7 +12,7 @@ import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
-import java.util.*
+
 
 class BindingAdapters {
     companion object{
@@ -70,20 +70,20 @@ class BindingAdapters {
             return false
         }
 
-        @BindingAdapter("android:showDueDate")
-        @JvmStatic
-        fun showDueDate(view: EditText, dueDate: Date)  {
-            if (dueDate != null) {
-                val calendar = Calendar.getInstance()
-                calendar.setTime(dueDate)
-                view.setText(
-                    "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}/${
-                        calendar.get(
-                            Calendar.YEAR
-                        )
-                    }"
-                )
-            }
-        }
+//        @BindingAdapter("android:showDueDate")
+//        @JvmStatic
+//        fun showDueDate(view: EditText, dueDate: Date)  {
+//            if (dueDate != null) {
+//                val calendar = Calendar.getInstance()
+//                calendar.setTime(dueDate)
+//                view.setText(
+//                    "${calendar.get(Calendar.DAY_OF_MONTH)}/${calendar.get(Calendar.MONTH) + 1}/${
+//                        calendar.get(
+//                            Calendar.YEAR
+//                        )
+//                    }"
+//                )
+//            }
+//        }
     }
 }

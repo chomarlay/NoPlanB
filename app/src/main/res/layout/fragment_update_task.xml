@@ -80,23 +80,12 @@
             android:drawableStart="@drawable/ic_calendar"
             android:text="Schedule"
             android:textAllCaps="false"
-            android:textColor="#00796B"
+            android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/project_spinner" />
 
-        <EditText
-            android:id="@+id/due_date_et"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="date"
-            android:showDueDate="@{args.currentItem.dueDate}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/due_date_btn"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
