@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.Task
+import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
@@ -18,6 +19,7 @@ import java.util.*
 
 class BindingAdapters {
     companion object{
+        private val sharedViewModel: SharedViewModel by lazy { SharedViewModel() }
 
         @BindingAdapter("android:navigateToAddProjectFragment")
         @JvmStatic
@@ -79,11 +81,7 @@ class BindingAdapters {
                 val calendar = Calendar.getInstance()
                 calendar.setTime(dueDate)
                 view.setText(
-                    "${calendar.get(Calendar.DAY_OF_MONTH)}-${calendar.get(Calendar.MONTH) + 1}-${
-                        calendar.get(
-                            Calendar.YEAR
-                        )
-                    }"
+                    "${sharedViewModel.formatDate(calendar)}"
                 )
             } else {
                 view.setText ("Schedule")

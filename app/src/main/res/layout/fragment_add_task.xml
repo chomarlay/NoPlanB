@@ -41,24 +41,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/task_description_et"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/custom_input"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="Description"
-            android:inputType="textMultiLine"
-            android:minLines="4"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/task_title_et"
-            app:layout_constraintTop_toBottomOf="@+id/task_title_et" />
-
         <Spinner
             android:id="@+id/project_spinner"
             android:layout_width="0dp"
@@ -69,22 +51,40 @@
             android:selectedProjectForSpinner="@{args.currentProjectId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/task_description_et"
-            app:layout_constraintTop_toBottomOf="@+id/task_description_et" />
+            app:layout_constraintStart_toStartOf="@+id/task_title_et"
+            app:layout_constraintTop_toBottomOf="@+id/task_title_et" />
 
         <Button
             android:id="@+id/due_date_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:drawableStart="@drawable/ic_calendar"
             android:text="Schedule"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/project_spinner" />
+
+        <EditText
+            android:id="@+id/task_description_et"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/custom_input"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:minLines="10"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/project_spinner"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/due_date_btn"
+            app:layout_constraintTop_toBottomOf="@+id/due_date_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

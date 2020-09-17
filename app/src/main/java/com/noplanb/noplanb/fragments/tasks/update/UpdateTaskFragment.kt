@@ -72,7 +72,7 @@ class UpdateTaskFragment : Fragment() {
         return binding.root
     }
     private fun setDueDate(year: Int, month: Int, dayOfMonth: Int) {
-        binding.dueDateBtn.setText("${dayOfMonth}-${month+1}-${year}")
+        binding.dueDateBtn.text = "${sharedViewModel.formatDate(year,month+1,dayOfMonth)}"
         saveDay = dayOfMonth
         saveMonth = month
         saveYear = year

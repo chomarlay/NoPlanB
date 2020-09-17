@@ -36,7 +36,7 @@
         android:background="@drawable/custom_input"
         android:gravity="start|top"
         android:inputType="textMultiLine"
-        android:minLines="4"
+        android:minLines="10"
         android:hint="Description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title_et"
