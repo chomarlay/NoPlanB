@@ -65,7 +65,9 @@ class UpdateTaskFragment : Fragment() {
                 dueDatePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
                 dueDatePicker.show()
             } else {
-                Toast.makeText(requireContext(), "PICK DATE", Toast.LENGTH_SHORT).show()
+                val dateSetListener  = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
+                val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+                dueDatePicker.show()
             }
         }
         setHasOptionsMenu(true)

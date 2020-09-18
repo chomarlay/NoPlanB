@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter
+import com.noplanb.noplanb.utils.hideKeyboard
 
 class ProjectListFragment : Fragment() {
     private var _binding: FragmentProjectListBinding? = null
@@ -30,7 +31,8 @@ class ProjectListFragment : Fragment() {
                 data->projectListAdapter.setData(data)
             }
         )
-
+        // hide soft keyboard
+        hideKeyboard(requireActivity())
         return binding.root
     }
 

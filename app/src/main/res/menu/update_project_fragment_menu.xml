@@ -3,14 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item android:id="@+id/menu_update_project"
         android:title="@string/UpdateProject"
-        android:icon="@drawable/ic_done"
-        android:iconTint="@color/white"
-        app:showAsAction="always"
-        />
-
-    <item android:id="@+id/menu_add_task"
-        android:title="@string/AddTask"
-        android:icon="@drawable/ic_add_task"
+        android:icon="@drawable/ic_save"
         android:iconTint="@color/white"
         app:showAsAction="always"
         />

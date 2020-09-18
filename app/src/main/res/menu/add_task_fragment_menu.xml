@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_save_task"
-        android:title="@string/AddTask"
-        android:icon="@drawable/ic_done"
+    <item
+        android:id="@+id/menu_save_task"
+        android:icon="@drawable/ic_save"
         android:iconTint="@color/white"
-        app:showAsAction="always"
-        />
+        android:title="@string/AddTask"
+        app:showAsAction="always" />
 </menu>
