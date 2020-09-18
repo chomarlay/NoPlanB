@@ -21,7 +21,7 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = TaskRowBinding.inflate(layoutInflater)
+                val binding = TaskRowBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }

@@ -15,7 +15,7 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ProjectRowBinding.inflate(layoutInflater)
+                val binding = ProjectRowBinding.inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }
