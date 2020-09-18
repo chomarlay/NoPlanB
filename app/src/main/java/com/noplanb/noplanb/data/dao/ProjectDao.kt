@@ -16,8 +16,11 @@ interface ProjectDao {
     fun getProjectsWithTasks(): LiveData<List<ProjectWithTasks>>
 
     @Transaction
-    @Query("SELECT * FROM Project where id=:projectId ")
+    @Query("SELECT * FROM Project where id=:projectId")
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks>
+
+    @Query("SELECT * FROM Project where id = :id")
+    fun getProjectById(id: Int): LiveData<Project>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(project: Project )

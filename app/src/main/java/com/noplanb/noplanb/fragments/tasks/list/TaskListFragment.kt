@@ -8,8 +8,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.R
+import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
+import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 
@@ -19,8 +21,9 @@ class TaskListFragment : Fragment() {
     private val binding get()=_binding!!
 
     private val projectViewModel: ProjectViewModel by viewModels()
+    private val taskViewModel: TaskViewModel by viewModels()
     private val taskListAdapter: TaskListAdapter by lazy { TaskListAdapter() }
-    private var currentProject: ProjectWithTasks? = null
+    private var currentProject: Project? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,14 +38,18 @@ class TaskListFragment : Fragment() {
 
         setHasOptionsMenu(projectId != 1)
 
-        projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
-            taskListAdapter.setData(data)
-            currentProject = data
-             }
-        )
+//        currentProject = projectViewModel.getProjectById(projectId) as Project
+        projectViewModel.getProjectById(projectId).observe(viewLifecycleOwner, {data-> currentProject = data})
+
+//        projectViewModel.getProjectWithTasks(projectId).observe(viewLifecycleOwner, { data ->
+//            taskListAdapter.setData(data)
+//            currentProject = data
+//             }
+//        )
+        taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data)})
 
         binding.addTaskBtn.setOnClickListener{
-           val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId)
+           val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId) // pass the projectId to addTaskFragment to set the current project in spinner
            findNavController().navigate(action)
         }
 
@@ -55,7 +62,7 @@ class TaskListFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_edit_project) {
             val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateProjectFragment(
-                currentProject!!.project
+                currentProject!!
             )
             findNavController().navigate(action)
 

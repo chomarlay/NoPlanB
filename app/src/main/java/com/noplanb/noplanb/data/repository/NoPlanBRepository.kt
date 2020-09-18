@@ -6,6 +6,7 @@ import com.noplanb.noplanb.data.NoPlanBDatabase
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
+import com.noplanb.noplanb.data.models.TaskWithProject
 
 class NoPlanBRepository(context: Context) {
 
@@ -15,10 +16,13 @@ class NoPlanBRepository(context: Context) {
 
     // Project
     val getAllProjects =  projectDao.getAllData()
-    val getAllProjectsWithTasks = projectDao.getProjectsWithTasks()
 
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
         return projectDao.getProjectWithTasks(projectId)
+    }
+
+    fun getProjectById(id: Int): LiveData<Project> {
+        return projectDao.getProjectById(id)
     }
 
     suspend fun insertProject(project: Project) {
@@ -34,8 +38,11 @@ class NoPlanBRepository(context: Context) {
     }
 
     // Task
-    val getAllTasks = taskDao.getAllData()
+//    val getAllTasks = taskDao.getAllData()
 
+    fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByProject(projectId)
+    }
     suspend fun insertTask(task: Task){
         taskDao.insertData(task)
     }

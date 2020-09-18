@@ -6,15 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
+import com.noplanb.noplanb.data.models.TaskWithProject
 import com.noplanb.noplanb.databinding.TaskRowBinding
 
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
-    var projectWithTasks: ProjectWithTasks? = null
+//    var projectWithTasks: ProjectWithTasks? = null
+        var tasksWithProject: List<TaskWithProject>? = null
     class MyViewHolder(private val binding: TaskRowBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(project: Project?, task: Task){
-            binding.project = project
-            binding.task = task
+        fun bind( taskWithProject:TaskWithProject){
+            binding.project = taskWithProject.project
+            binding.task = taskWithProject.task
         }
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
@@ -30,23 +32,29 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val tasks = projectWithTasks?.tasks
+        val tasks = tasksWithProject
         if (tasks != null) {
             val currentItem = tasks[position]
-            holder.bind(projectWithTasks?.project, currentItem)
+            holder.bind(currentItem)
         }
 
     }
 
     override fun getItemCount(): Int {
-        if (projectWithTasks != null && projectWithTasks!!.tasks!= null) {
-            return projectWithTasks!!.tasks.size
+        if (tasksWithProject != null) {
+            return tasksWithProject!!.size
+        } else {
+            return 0
         }
-        return 0
     }
 
-    fun setData(projectWithTasks: ProjectWithTasks?) {
-        this.projectWithTasks = projectWithTasks
+//    fun setData(projectWithTasks: ProjectWithTasks?) {
+//        this.projectWithTasks = projectWithTasks
+//        notifyDataSetChanged()
+//    }
+
+    fun setData(tasksWithProject: List<TaskWithProject>) {
+        this.tasksWithProject = tasksWithProject
         notifyDataSetChanged()
     }
 
