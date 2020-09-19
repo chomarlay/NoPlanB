@@ -3,6 +3,7 @@ package com.noplanb.noplanb.data.models
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
@@ -10,7 +11,13 @@ import java.util.*
 @Entity (foreignKeys = arrayOf(ForeignKey(entity = Project::class,
                         parentColumns = arrayOf("id"),
                         childColumns = arrayOf("projectId"),
-                        onDelete = ForeignKey.CASCADE)))
+                        onDelete = ForeignKey.CASCADE)),
+    indices = arrayOf(
+        Index(
+            value = ["projectId"]
+        )
+    )
+    )
 @Parcelize
 
 data class Task(
@@ -22,15 +29,3 @@ data class Task(
     var dueDate: Date?
 ): Parcelable
 
-/*
-*
-* foreignKeys = @ForeignKey(entity = Company.class,
-        parentColumns = "id",
-        childColumns = "company_id",
-        onDelete = ForeignKey.NO_ACTION)
-        *
-        *
-        * foreignKeys = arrayOf(ForeignKey(entity = ParentClass::class,
-                    parentColumns = arrayOf("parentClassColumn"),
-                    childColumns = arrayOf("childClassColumn"),
-                    onDelete = ForeignKey.CASCADE))*/
