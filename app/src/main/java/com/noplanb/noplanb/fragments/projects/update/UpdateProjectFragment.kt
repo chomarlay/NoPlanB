@@ -67,10 +67,9 @@ class UpdateProjectFragment : Fragment() {
     private fun updateProject() {
         val mTitle = current_title_et.text.toString()
         val mDescription = current_description_et.text.toString()
-        if (sharedViewModel.validProjectDataFromInput(mTitle, mDescription)) {
+        if (sharedViewModel.validProjectDataFromInput(mTitle)) {
             val project = Project(args.currentItem.id,mTitle,mDescription)
             projectViewModel.updateProject(project)
-//            findNavController().navigate(R.id.action_updateProjectFragment_to_taskListFragment)
             val action = UpdateProjectFragmentDirections.actionUpdateProjectFragmentToTaskListFragment(
                 args.currentItem.id, mTitle
             )
@@ -78,7 +77,7 @@ class UpdateProjectFragment : Fragment() {
             Toast.makeText(requireContext(), "Project '${mTitle}' updated successfully.", Toast.LENGTH_SHORT).show()
 
         } else {
-            Toast.makeText(requireContext(), "Please enter project title.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please enter the Title of the project.", Toast.LENGTH_SHORT).show()
         }
     }
 

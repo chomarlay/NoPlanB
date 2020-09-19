@@ -40,14 +40,15 @@ class AddProjectFragment : Fragment() {
     private fun insertProjectToDb() {
         val mTitle = title_et.text.toString()
         val mDescription = description_et.text.toString()
-        if (sharedViewModel.validProjectDataFromInput(mTitle, mDescription)) {
+        if (sharedViewModel.validProjectDataFromInput(mTitle)) {
             val project = Project(0,mTitle,mDescription)
             projectViewModel.insertProject(project)
             Toast.makeText(requireContext(),"Project saved successfully", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addProjectFragment_to_projectListFragment)
         } else {
-            Toast.makeText(requireContext(),"Please enter Title of the project", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(),"Please enter the Title of the project", Toast.LENGTH_SHORT).show()
         }
 
     }
+
 }

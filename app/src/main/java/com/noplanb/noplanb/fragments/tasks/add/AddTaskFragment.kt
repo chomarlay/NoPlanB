@@ -92,7 +92,7 @@ class AddTaskFragment : Fragment() {
         val mTitle = task_title_et.text.toString()
         val mDescription = task_description_et.text.toString()
         val mProject: Project = project_spinner.selectedItem as Project
-        if (sharedViewModel.validTaskDataFromInput(mProject, mTitle, mDescription)) {
+        if (sharedViewModel.validTaskDataFromInput(mTitle)) {
 
             val task = Task(0, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
             taskViewModel.insertTask(task)
@@ -105,10 +105,13 @@ class AddTaskFragment : Fragment() {
             findNavController().navigate(action)
 
         } else {
-            Toast.makeText(requireContext(), "Please enter details of the task", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(requireContext(), "Please enter the Title of the task", Toast.LENGTH_SHORT).show()
         }
 
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 }
