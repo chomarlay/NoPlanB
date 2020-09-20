@@ -27,7 +27,7 @@ class ProjectListFragment : Fragment() {
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         setupRecyclerView()
-        projectViewModel.getAllProjects.observe(viewLifecycleOwner, {
+        projectViewModel.getProjectsWithTasks.observe(viewLifecycleOwner, {
                 data->projectListAdapter.setData(data)
             }
         )

@@ -17,6 +17,8 @@ class NoPlanBRepository(context: Context) {
     // Project
     val getAllProjects =  projectDao.getAllData()
 
+    val getProjectsWithTasks = projectDao.getProjectsWithTasks()
+
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
         return projectDao.getProjectWithTasks(projectId)
     }

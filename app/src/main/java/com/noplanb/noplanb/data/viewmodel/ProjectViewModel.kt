@@ -13,9 +13,11 @@ import kotlinx.coroutines.launch
 class ProjectViewModel( application: Application) : AndroidViewModel(application) {
     private val repository= NoPlanBRepository(application)
     val getAllProjects: LiveData<List<Project>>
+    val getProjectsWithTasks: LiveData<List<ProjectWithTasks>>
 
     init {
         getAllProjects = repository.getAllProjects
+        getProjectsWithTasks = repository.getProjectsWithTasks
     }
 
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {

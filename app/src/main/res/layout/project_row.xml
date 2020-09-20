@@ -5,8 +5,13 @@
 
     <data>
         <variable
-            name="project"
-            type="com.noplanb.noplanb.data.models.Project" />
+            name="projectWithTasks"
+            type="com.noplanb.noplanb.data.models.ProjectWithTasks" />
+
+        <variable
+            name="tasksCount"
+            type="String"
+            />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_background"
-            android:sendDataAndNavigateToTaskListFragment="@{project}"
+            android:sendDataAndNavigateToTaskListFragment="@{projectWithTasks.project}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -33,7 +38,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:text="@{project.title}"
+                android:text="@{projectWithTasks.project.title}"
                 android:textColor="@color/darkGray"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/description_txt"
+                android:id="@+id/tasksCount_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -49,7 +54,7 @@
                 android:layout_marginBottom="8dp"
                 android:maxLength="300"
                 android:maxLines="5"
-                android:text="@{project.description}"
+                android:text="@{tasksCount}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/title_txt"

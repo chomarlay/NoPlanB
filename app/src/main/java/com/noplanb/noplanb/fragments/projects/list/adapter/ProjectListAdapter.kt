@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.databinding.ProjectRowBinding
 
 class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder>() {
-    var projectList = emptyList<Project>()
+    var projectList = emptyList<ProjectWithTasks>()
     class MyViewHolder(private val binding: ProjectRowBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(project:Project){
-            binding.project = project
+        fun bind(project:ProjectWithTasks){
+            binding.projectWithTasks = project
+            binding.tasksCount = project.tasks.size.toString()
         }
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
@@ -34,7 +36,7 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
         return projectList.size
     }
 
-    fun setData(projectList: List<Project>) {
+    fun setData(projectList: List<ProjectWithTasks>) {
         this.projectList = projectList
         notifyDataSetChanged()
     }
