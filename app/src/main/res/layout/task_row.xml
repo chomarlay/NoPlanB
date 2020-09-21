@@ -4,12 +4,8 @@
 
     <data>
         <variable
-            name="task"
-            type="com.noplanb.noplanb.data.models.Task" />
-
-        <variable
-            name="project"
-            type="com.noplanb.noplanb.data.models.Project" />
+            name="taskWithProject"
+            type="com.noplanb.noplanb.data.models.TaskWithProject" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,8 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/item_background"
-            android:sendTaskToUpdateTaskFragment="@{task}"
-            android:sendProjectToUpdateTaskFragment="@{project}"
+            android:sendTaskToUpdateTaskFragment="@{taskWithProject}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -37,7 +32,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@{task.title}"
+                android:text="@{taskWithProject.task.title}"
                 android:textColor="@color/darkGray"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -51,7 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:maxLength="300"
-                android:text="@{project.title}"
+                android:text="@{taskWithProject.project.title}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/title_txt"
                 app:layout_constraintTop_toBottomOf="@+id/title_txt" />
@@ -64,7 +59,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:showDueDate="@{task.dueDate}"
+                android:showDueDate="@{taskWithProject.task.dueDate}"
                 android:textColor="@color/colorAccent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/title_txt"

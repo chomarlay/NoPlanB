@@ -10,12 +10,17 @@ import com.noplanb.noplanb.data.models.TaskWithProject
 import com.noplanb.noplanb.data.repository.NoPlanBRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val repository= NoPlanBRepository(application)
 
     fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
         return repository.getTasksByProject(projectId)
+    }
+
+    fun getTasksDueBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>> {
+        return repository.getTasksDueBeforeDate(beforeDate)
     }
 
     fun insertTask (task: Task) {

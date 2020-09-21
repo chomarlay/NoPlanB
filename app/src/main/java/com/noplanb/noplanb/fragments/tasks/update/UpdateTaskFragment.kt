@@ -41,8 +41,9 @@ class UpdateTaskFragment : Fragment() {
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
         val calendar: Calendar = Calendar.getInstance()
-        if (args.currentItem.dueDate != null) {
-            calendar.setTime(args.currentItem.dueDate!!)
+
+        if (args.currentItem.task.dueDate != null) {
+            calendar.setTime(args.currentItem.task.dueDate!!)
             saveDay = calendar.get(Calendar.DAY_OF_MONTH)
             saveMonth = calendar.get(Calendar.MONTH)
             saveYear = calendar.get(Calendar.YEAR)
@@ -98,7 +99,7 @@ class UpdateTaskFragment : Fragment() {
         val mProject: Project = project_spinner.selectedItem as Project
 
         if (sharedViewModel.validTaskDataFromInput(mTitle)) {
-            val task = Task(args.currentItem.id, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
+            val task = Task(args.currentItem.task.id, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),
@@ -125,14 +126,14 @@ class UpdateTaskFragment : Fragment() {
     private fun confirmItemDelete() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Task")
-        builder.setMessage("Do you want to delete task '${args.currentItem.title}' from ${args.currentProject.title} ?")
+        builder.setMessage("Do you want to delete task '${args.currentItem.task.title}' from ${args.currentItem.project.title} ?")
         builder.setPositiveButton("Yes") {
             //dialogInterface: DialogInterface, i: Int ->
                 _,_-> // short form to above
-            taskViewModel.deleteTask(args.currentItem)
-            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(args.currentItem.projectId, args.currentProject.title)
+            taskViewModel.deleteTask(args.currentItem.task)
+            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(args.currentItem.task.projectId, args.currentItem.project.title)
             findNavController().navigate(action)
-            Toast.makeText(requireContext(), "Task '${args.currentItem.title}' deleted successfully from ${args.currentProject.title}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Task '${args.currentItem.task.title}' deleted successfully from ${args.currentItem.project.title}", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") {
 //                dialogInterface: DialogInterface, i: Int ->

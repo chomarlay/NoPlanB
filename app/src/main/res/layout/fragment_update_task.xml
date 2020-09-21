@@ -35,7 +35,7 @@
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:text="@{args.currentItem.title}"
+            android:text="@{args.currentItem.task.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +49,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:projectsForSpinner="@{projectViewModel.getAllProjects}"
-            android:selectedProjectForSpinner="@{args.currentItem.projectId}"
+            android:selectedProjectForSpinner="@{args.currentItem.task.projectId}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/task_title_et"
@@ -83,7 +83,7 @@
             android:inputType="textMultiLine"
             android:minLines="10"
             android:hint="Description"
-            android:text="@{args.currentItem.description}"
+            android:text="@{args.currentItem.task.description}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/due_date_btn"
             app:layout_constraintTop_toBottomOf="@+id/due_date_btn" />

@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.Task
+import com.noplanb.noplanb.data.models.TaskWithProject
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
@@ -31,10 +32,10 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter(value=["android:sendTaskToUpdateTaskFragment", "android:sendProjectToUpdateTaskFragment"], requireAll = false )
+        @BindingAdapter("android:sendTaskToUpdateTaskFragment" )
         @JvmStatic
-        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: Task, currentProject: Project) {
-            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem, currentProject)
+        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: TaskWithProject) {
+            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem)
             view.setOnClickListener {
                 view.findNavController().navigate(action)
             }

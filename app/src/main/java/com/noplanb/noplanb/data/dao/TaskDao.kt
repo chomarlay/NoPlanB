@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.data.models.TaskWithProject
+import java.util.*
 
 @Dao
 interface TaskDao {
@@ -13,6 +14,10 @@ interface TaskDao {
     @Transaction
     @Query("SELECT * FROM Task where projectId= :projectId order by dueDate")
     fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>>
+
+    @Transaction
+    @Query("SELECT * FROM Task where dueDate < :beforeDate order by dueDate asc")
+    fun getTasksByBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(task: Task)

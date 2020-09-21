@@ -11,12 +11,10 @@ import com.noplanb.noplanb.databinding.TaskRowBinding
 
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
-//    var projectWithTasks: ProjectWithTasks? = null
-        var tasksWithProject: List<TaskWithProject>? = null
+    var tasksWithProject: List<TaskWithProject>? = null
     class MyViewHolder(private val binding: TaskRowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind( taskWithProject:TaskWithProject){
-            binding.project = taskWithProject.project
-            binding.task = taskWithProject.task
+            binding.taskWithProject = taskWithProject
         }
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
@@ -47,11 +45,6 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
             return 0
         }
     }
-
-//    fun setData(projectWithTasks: ProjectWithTasks?) {
-//        this.projectWithTasks = projectWithTasks
-//        notifyDataSetChanged()
-//    }
 
     fun setData(tasksWithProject: List<TaskWithProject>) {
         this.tasksWithProject = tasksWithProject

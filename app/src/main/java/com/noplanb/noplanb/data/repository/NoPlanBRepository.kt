@@ -7,6 +7,7 @@ import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.data.models.TaskWithProject
+import java.util.*
 
 class NoPlanBRepository(context: Context) {
 
@@ -16,7 +17,6 @@ class NoPlanBRepository(context: Context) {
 
     // Project
     val getAllProjects =  projectDao.getAllData()
-
     val getProjectsWithTasks = projectDao.getProjectsWithTasks()
 
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
@@ -40,6 +40,10 @@ class NoPlanBRepository(context: Context) {
     }
 
     // Task
+
+    fun getTasksDueBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByBeforeDate(beforeDate)
+    }
 
     fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
         return taskDao.getTasksByProject(projectId)
