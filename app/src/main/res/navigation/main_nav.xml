@@ -71,18 +71,19 @@
             app:destination="@id/taskListFragment"
             app:popUpTo="@id/taskListFragment"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="currentItem"
-            app:argType="com.noplanb.noplanb.data.models.TaskWithProject" />
-        <argument
-            android:name="fromList"
-            app:argType="string"
-            android:defaultValue="A"/>
         <action
             android:id="@+id/action_updateTaskFragment_to_todayTaskListFragment"
             app:destination="@id/todayTaskListFragment"
             app:popUpTo="@id/todayTaskListFragment"
             app:popUpToInclusive="true" />
+
+        <argument
+            android:name="currentItem"
+            app:argType="com.noplanb.noplanb.data.models.TaskWithProject" />
+        <argument
+            android:name="fromList"
+            app:argType="integer" />
+
     </fragment>
     <fragment
         android:id="@+id/addProjectFragment"

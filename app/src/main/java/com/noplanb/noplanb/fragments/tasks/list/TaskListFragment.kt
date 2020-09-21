@@ -14,6 +14,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
+import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.hideKeyboard
 
 class TaskListFragment : Fragment() {
@@ -47,7 +48,7 @@ class TaskListFragment : Fragment() {
 //            currentProject = data
 //             }
 //        )
-        taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, "B")})
+        taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_PROJ)})
 
         binding.addTaskBtn.setOnClickListener{
            val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId) // pass the projectId to addTaskFragment to set the current project in spinner

@@ -8,13 +8,14 @@ import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.data.models.TaskWithProject
 import com.noplanb.noplanb.databinding.TaskRowBinding
+import com.noplanb.noplanb.utils.NpbConstants
 
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
     var tasksWithProject: List<TaskWithProject>? = null
-    var fromList: String = ""
+    var fromList: Int = NpbConstants.TASK_LIST_TODAY
     class MyViewHolder(private val binding: TaskRowBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind( taskWithProject:TaskWithProject, fromList: String){
+        fun bind( taskWithProject:TaskWithProject, fromList: Int){
             binding.taskWithProject = taskWithProject
             binding.fromList = fromList
         }
@@ -48,7 +49,7 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
         }
     }
 
-    fun setData(tasksWithProject: List<TaskWithProject>, fromList: String) {
+    fun setData(tasksWithProject: List<TaskWithProject>, fromList: Int) {
         this.tasksWithProject = tasksWithProject
         this.fromList = fromList
         notifyDataSetChanged()

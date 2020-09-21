@@ -8,7 +8,7 @@
             type="com.noplanb.noplanb.data.models.TaskWithProject" />
         <variable
             name="fromList"
-            type="String" />
+            type="int" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

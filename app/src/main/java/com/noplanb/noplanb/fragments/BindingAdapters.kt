@@ -17,6 +17,7 @@ import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 import com.noplanb.noplanb.fragments.tasks.list.TodayTaskListFragmentDirections
+import com.noplanb.noplanb.utils.NpbConstants
 import java.util.*
 
 
@@ -36,9 +37,9 @@ class BindingAdapters {
 
         @BindingAdapter("android:sendTaskToUpdateTaskFragment", "android:fromList")
         @JvmStatic
-        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: TaskWithProject, fromList: String) {
+        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: TaskWithProject, fromList: Int) {
 
-            if (fromList.equals("A") ) {
+            if (fromList == NpbConstants.TASK_LIST_TODAY)  {
                 val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToUpdateTaskFragment(
                     currentItem, fromList
                 )
@@ -53,8 +54,6 @@ class BindingAdapters {
                     view.findNavController().navigate(action)
                 }
             }
-
-
         }
 
         @BindingAdapter("android:sendDataAndNavigateToTaskListFragment")

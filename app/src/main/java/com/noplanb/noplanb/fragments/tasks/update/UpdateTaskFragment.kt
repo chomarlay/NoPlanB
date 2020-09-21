@@ -16,6 +16,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateTaskBinding
+import com.noplanb.noplanb.utils.NpbConstants
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -106,7 +107,7 @@ class UpdateTaskFragment : Fragment() {
                 "Successfully updated task '${mTitle}' in project '${mProject.title}'",
                 Toast.LENGTH_SHORT
             ).show()
-            if(args.fromList.equals("A")) {
+            if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
                 val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
                 findNavController().navigate(action)
             } else {

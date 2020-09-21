@@ -13,6 +13,7 @@ import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 import com.noplanb.noplanb.databinding.FragmentTodayTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
+import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.hideKeyboard
 import java.util.*
 
@@ -33,7 +34,7 @@ class TodayTaskListFragment : Fragment() {
 
         setupRecyclerView()
         val beforeDate: Date = Date()
-        taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data,"A")})
+        taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
         // hide soft keyboard
         hideKeyboard(requireActivity())
         return binding.root
