@@ -47,7 +47,7 @@ class TaskListFragment : Fragment() {
 //            currentProject = data
 //             }
 //        )
-        taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data)})
+        taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, "B")})
 
         binding.addTaskBtn.setOnClickListener{
            val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId) // pass the projectId to addTaskFragment to set the current project in spinner

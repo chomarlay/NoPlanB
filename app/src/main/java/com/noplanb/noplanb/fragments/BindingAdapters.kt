@@ -5,6 +5,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.noplanb.noplanb.R
@@ -15,6 +16,7 @@ import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.fragments.projects.list.ProjectListFragmentDirections
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
+import com.noplanb.noplanb.fragments.tasks.list.TodayTaskListFragmentDirections
 import java.util.*
 
 
@@ -32,13 +34,26 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter("android:sendTaskToUpdateTaskFragment" )
+        @BindingAdapter("android:sendTaskToUpdateTaskFragment", "android:fromList")
         @JvmStatic
-        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: TaskWithProject) {
-            val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(currentItem)
-            view.setOnClickListener {
-                view.findNavController().navigate(action)
+        fun sendDataAndNavigateToUpdateTaskFragment(view: ConstraintLayout, currentItem: TaskWithProject, fromList: String) {
+
+            if (fromList.equals("A") ) {
+                val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToUpdateTaskFragment(
+                    currentItem, fromList
+                )
+                view.setOnClickListener {
+                    view.findNavController().navigate(action)
+                }
+            } else {
+                val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(
+                    currentItem, fromList
+                )
+                view.setOnClickListener {
+                    view.findNavController().navigate(action)
+                }
             }
+
 
         }
 

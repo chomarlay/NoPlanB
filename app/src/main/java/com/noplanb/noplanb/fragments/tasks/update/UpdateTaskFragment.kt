@@ -106,8 +106,17 @@ class UpdateTaskFragment : Fragment() {
                 "Successfully updated task '${mTitle}' in project '${mProject.title}'",
                 Toast.LENGTH_SHORT
             ).show()
-            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(mProject.id, mProject.title)
-            findNavController().navigate(action)
+            if(args.fromList.equals("A")) {
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(
+                        mProject.id,
+                        mProject.title
+                    )
+                findNavController().navigate(action)
+            }
 
         } else {
             Toast.makeText(requireContext(), "Please enter the Title of the task", Toast.LENGTH_SHORT)

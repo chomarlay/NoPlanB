@@ -12,9 +12,11 @@ import com.noplanb.noplanb.databinding.TaskRowBinding
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
     var tasksWithProject: List<TaskWithProject>? = null
+    var fromList: String = ""
     class MyViewHolder(private val binding: TaskRowBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind( taskWithProject:TaskWithProject){
+        fun bind( taskWithProject:TaskWithProject, fromList: String){
             binding.taskWithProject = taskWithProject
+            binding.fromList = fromList
         }
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
@@ -33,7 +35,7 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
         val tasks = tasksWithProject
         if (tasks != null) {
             val currentItem = tasks[position]
-            holder.bind(currentItem)
+            holder.bind(currentItem, fromList)
         }
 
     }
@@ -46,8 +48,9 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
         }
     }
 
-    fun setData(tasksWithProject: List<TaskWithProject>) {
+    fun setData(tasksWithProject: List<TaskWithProject>, fromList: String) {
         this.tasksWithProject = tasksWithProject
+        this.fromList = fromList
         notifyDataSetChanged()
     }
 

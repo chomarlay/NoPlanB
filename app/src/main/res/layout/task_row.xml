@@ -6,6 +6,9 @@
         <variable
             name="taskWithProject"
             type="com.noplanb.noplanb.data.models.TaskWithProject" />
+        <variable
+            name="fromList"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +22,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/item_background"
             android:sendTaskToUpdateTaskFragment="@{taskWithProject}"
+            android:fromList="@{fromList}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

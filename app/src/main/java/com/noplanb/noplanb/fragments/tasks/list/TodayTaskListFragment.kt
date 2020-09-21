@@ -33,7 +33,7 @@ class TodayTaskListFragment : Fragment() {
 
         setupRecyclerView()
         val beforeDate: Date = Date()
-        taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data)})
+        taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data,"A")})
         // hide soft keyboard
         hideKeyboard(requireActivity())
         return binding.root
@@ -43,5 +43,10 @@ class TodayTaskListFragment : Fragment() {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null // very important to avoid memory leak
     }
 }
