@@ -18,6 +18,7 @@ import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentAddTaskBinding
 import com.noplanb.noplanb.utils.NpbConstants
+import com.noplanb.noplanb.utils.dueDateToSave
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -74,19 +75,9 @@ class AddTaskFragment : Fragment() {
     }
     private fun setDueDate(year: Int, month: Int, dayOfMonth: Int) {
         binding.dueDateBtn.text = "${sharedViewModel.formatDate(year,month+1,dayOfMonth)}"
-
         saveDay = dayOfMonth
         saveMonth = month
         saveYear = year
-    }
-
-    private fun setDueDateToSave (year: Int, month: Int, dayOfMonth: Int): Date? {
-        if (year == 0) {
-            return null
-        }
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(year, month, dayOfMonth)
-        return calendar.time
     }
 
     private fun saveTaskToDb() {
@@ -95,7 +86,7 @@ class AddTaskFragment : Fragment() {
         val mProject: Project = project_spinner.selectedItem as Project
         if (sharedViewModel.validTaskDataFromInput(mTitle)) {
 
-            val task = Task(0, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
+            val task = Task(0, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay))
             taskViewModel.insertTask(task)
             Toast.makeText(
                 requireContext(),

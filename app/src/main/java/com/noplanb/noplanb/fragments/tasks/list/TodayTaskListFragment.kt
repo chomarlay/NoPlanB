@@ -8,20 +8,19 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
-import com.noplanb.noplanb.databinding.FragmentTaskListBinding
 import com.noplanb.noplanb.databinding.FragmentTodayTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 import com.noplanb.noplanb.utils.NpbConstants
+import com.noplanb.noplanb.utils.dueBeforeDate
 import com.noplanb.noplanb.utils.hideKeyboard
+
 import java.util.*
 
 class TodayTaskListFragment : Fragment() {
     private var _binding: FragmentTodayTaskListBinding? = null
     private val binding get()=_binding!!
-    private val projectViewModel: ProjectViewModel by viewModels()
     private val taskViewModel: TaskViewModel by viewModels()
     private val taskListAdapter: TaskListAdapter by lazy { TaskListAdapter() }
 
@@ -34,8 +33,7 @@ class TodayTaskListFragment : Fragment() {
         binding.lifecycleOwner = this
 
         setupRecyclerView()
-        val beforeDate: Date = Date()
-        taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
+        taskViewModel.getTasksDueBeforeDate(dueBeforeDate(1)).observe(viewLifecycleOwner, { data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
 
         binding.addTaskBtn.setOnClickListener{
             val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToAddTaskFragment(0, NpbConstants.TASK_LIST_TODAY) // pass the projectId to addTaskFragment to set the current project in spinner

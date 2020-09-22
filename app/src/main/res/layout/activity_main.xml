@@ -26,6 +26,8 @@
         android:layout_height="match_parent"
         app:headerLayout="@layout/drawer_header"
         app:menu="@menu/drawer_menu"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/colorAccent"
         android:layout_gravity= "start"
         android:fitsSystemWindows="true"
         />

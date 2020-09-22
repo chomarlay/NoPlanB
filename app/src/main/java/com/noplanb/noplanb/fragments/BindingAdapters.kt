@@ -65,13 +65,12 @@ class BindingAdapters {
             }
         }
 
-        @BindingAdapter(value = ["android:projectsForSpinner", "android:selectedProjectForSpinner"], requireAll = false)
+        @BindingAdapter("android:projectsForSpinner", "android:selectedProjectForSpinner")
         @JvmStatic
         fun getProjectsForSpinner(view: Spinner, projects: List<Project>?, selectedProjectId: Int) {
             if (projects == null) {
                 return
             }
-//            val spinnerAdapter = ArrayAdapter<Project>(view.context, R.layout.support_simple_spinner_dropdown_item, projs)
             val spinnerAdapter = ProjectAdapter(view.context, R.layout.support_simple_spinner_dropdown_item, projects)
             view.adapter = spinnerAdapter
             setCurrentSelection(view, selectedProjectId)

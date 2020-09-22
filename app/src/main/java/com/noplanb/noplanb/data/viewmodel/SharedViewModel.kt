@@ -23,8 +23,7 @@ class SharedViewModel {
     }
 
     fun formatDate (year: Int, month: Int, day: Int) : String {
-        val month = String.format("%02d", month);
-        val day = String.format("%02d", day);
-        return "${day}-${month}-${year}"
+
+        return "${String.format("%02d", day)}-${String.format("%02d", month)}-${year}"
     }
 }

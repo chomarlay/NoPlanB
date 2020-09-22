@@ -17,6 +17,7 @@ import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateTaskBinding
 import com.noplanb.noplanb.utils.NpbConstants
+import com.noplanb.noplanb.utils.dueDateToSave
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -100,7 +101,7 @@ class UpdateTaskFragment : Fragment() {
         val mProject: Project = project_spinner.selectedItem as Project
 
         if (sharedViewModel.validTaskDataFromInput(mTitle)) {
-            val task = Task(args.currentItem.task.id, mProject.id, mTitle, mDescription, setDueDateToSave(saveYear, saveMonth, saveDay))
+            val task = Task(args.currentItem.task.id, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay))
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),
@@ -125,14 +126,6 @@ class UpdateTaskFragment : Fragment() {
         }
     }
 
-    private fun setDueDateToSave (year: Int, month: Int, dayOfMonth: Int): Date? {
-        if (year == 0) {
-            return null
-        }
-        val calendar: Calendar = Calendar.getInstance()
-        calendar.set(year, month, dayOfMonth)
-        return calendar.time
-    }
     private fun confirmItemDelete() {
         val builder = AlertDialog.Builder(requireContext())
         builder.setTitle("Delete Task")

@@ -31,7 +31,7 @@ class AddProjectFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId === R.id.menu_save_project) {
+        if (item.itemId == R.id.menu_save_project) {
             insertProjectToDb()
         }
         return super.onOptionsItemSelected(item)
