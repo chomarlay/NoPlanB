@@ -51,7 +51,7 @@ class TaskListFragment : Fragment() {
         taskViewModel.getTasksByProject(projectId).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_PROJ)})
 
         binding.addTaskBtn.setOnClickListener{
-           val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId) // pass the projectId to addTaskFragment to set the current project in spinner
+           val action = TaskListFragmentDirections.actionTaskListFragmentToAddTaskFragment(projectId, NpbConstants.TASK_LIST_PROJ) // pass the projectId to addTaskFragment to set the current project in spinner
            findNavController().navigate(action)
         }
         // hide soft keyboard

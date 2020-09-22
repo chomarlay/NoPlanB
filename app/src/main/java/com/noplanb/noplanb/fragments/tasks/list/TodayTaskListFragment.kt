@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
@@ -35,6 +36,11 @@ class TodayTaskListFragment : Fragment() {
         setupRecyclerView()
         val beforeDate: Date = Date()
         taskViewModel.getTasksDueBeforeDate(beforeDate).observe(viewLifecycleOwner, {data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
+
+        binding.addTaskBtn.setOnClickListener{
+            val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToAddTaskFragment(0, NpbConstants.TASK_LIST_TODAY) // pass the projectId to addTaskFragment to set the current project in spinner
+            findNavController().navigate(action)
+        }
         // hide soft keyboard
         hideKeyboard(requireActivity())
         return binding.root

@@ -141,8 +141,18 @@ class UpdateTaskFragment : Fragment() {
             //dialogInterface: DialogInterface, i: Int ->
                 _,_-> // short form to above
             taskViewModel.deleteTask(args.currentItem.task)
-            val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(args.currentItem.task.projectId, args.currentItem.project.title)
-            findNavController().navigate(action)
+
+            if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(
+                        args.currentItem.task.projectId,
+                        args.currentItem.project.title
+                    )
+                findNavController().navigate(action)
+            }
             Toast.makeText(requireContext(), "Task '${args.currentItem.task.title}' deleted successfully from ${args.currentItem.project.title}", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") {

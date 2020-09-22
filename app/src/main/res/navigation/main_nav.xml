@@ -60,6 +60,16 @@
             android:name="currentProjectId"
             app:argType="integer"
             android:defaultValue="1"/>
+        <argument
+            android:name="fromList"
+            app:argType="integer"
+            android:defaultValue="1"
+            />
+        <action
+            android:id="@+id/action_addTaskFragment_to_todayTaskListFragment"
+            app:destination="@id/todayTaskListFragment"
+            app:popUpTo="@id/todayTaskListFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/updateTaskFragment"
@@ -118,5 +128,8 @@
         <action
             android:id="@+id/action_todayTaskListFragment_to_updateTaskFragment"
             app:destination="@id/updateTaskFragment" />
+        <action
+            android:id="@+id/action_todayTaskListFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment" />
     </fragment>
 </navigation>

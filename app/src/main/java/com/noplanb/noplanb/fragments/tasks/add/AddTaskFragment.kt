@@ -17,6 +17,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentAddTaskBinding
+import com.noplanb.noplanb.utils.NpbConstants
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -101,8 +102,14 @@ class AddTaskFragment : Fragment() {
                 "Successfully saved task '${mTitle}' in project '${mProject.title}'",
                 Toast.LENGTH_SHORT
             ).show()
-            val action = AddTaskFragmentDirections.actionAddTaskFragmentToTaskListFragment(mProject.id, mProject.title)
-            findNavController().navigate(action)
+            if (args.fromList == NpbConstants.TASK_LIST_TODAY) {
+                val action = AddTaskFragmentDirections.actionAddTaskFragmentToTodayTaskListFragment()
+                findNavController().navigate(action)
+            } else {
+                val action = AddTaskFragmentDirections.actionAddTaskFragmentToTaskListFragment(mProject.id, mProject.title)
+                findNavController().navigate(action)
+            }
+
 
         } else {
             Toast.makeText(requireContext(), "Please enter the Title of the task", Toast.LENGTH_SHORT).show()
