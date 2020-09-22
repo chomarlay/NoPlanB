@@ -8,15 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTodayTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.dueBeforeDate
 import com.noplanb.noplanb.utils.hideKeyboard
-
-import java.util.*
 
 class TodayTaskListFragment : Fragment() {
     private var _binding: FragmentTodayTaskListBinding? = null

@@ -42,7 +42,7 @@ class UpdateTaskFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
-        val calendar: Calendar = Calendar.getInstance()
+        var calendar: Calendar = Calendar.getInstance()
 
         if (args.currentItem.task.dueDate != null) {
             calendar.setTime(args.currentItem.task.dueDate!!)
@@ -55,6 +55,7 @@ class UpdateTaskFragment : Fragment() {
                 saveDay,
             )
         }
+
         binding.dueDateBtn.setOnClickListener {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
@@ -73,6 +74,10 @@ class UpdateTaskFragment : Fragment() {
                 dueDatePicker.show()
             }
         }
+        binding.clearDueDateBtn.setOnClickListener{
+            clearDueDate()
+            calendar = Calendar.getInstance()
+        }
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -81,6 +86,13 @@ class UpdateTaskFragment : Fragment() {
         saveDay = dayOfMonth
         saveMonth = month
         saveYear = year
+    }
+
+    private fun clearDueDate() {
+        binding.dueDateBtn.text = "Schedule"
+        saveDay=0
+        saveMonth=0
+        saveYear=0
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
