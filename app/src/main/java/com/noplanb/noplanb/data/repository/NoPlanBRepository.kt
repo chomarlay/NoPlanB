@@ -45,7 +45,18 @@ class NoPlanBRepository(context: Context) {
         return taskDao.getTasksByBeforeDate(beforeDate)
     }
 
+    // get tasks that are not marked as completed
     fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByProject(projectId)
+    }
+
+    // get all tasks
+    fun getAllTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByProject(projectId)
+    }
+
+    // get tasks that are marked as completed
+    fun getCompletedTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
         return taskDao.getTasksByProject(projectId)
     }
     suspend fun insertTask(task: Task){

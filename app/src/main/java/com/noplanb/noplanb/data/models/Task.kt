@@ -26,6 +26,7 @@ data class Task(
     var projectId: Int,
     var title: String,
     var description: String,
-    var dueDate: Date?
+    var dueDate: Date?,
+    var completedDate: Date?
 ): Parcelable
 

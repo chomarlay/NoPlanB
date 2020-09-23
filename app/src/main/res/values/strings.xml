@@ -18,4 +18,5 @@
     </string-array>
     <string name="delete_project">Delete Project</string>
     <string name="delete_task">Delete Task</string>
+    <string name="mark_as_complete">Mark as complete</string>
 </resources>

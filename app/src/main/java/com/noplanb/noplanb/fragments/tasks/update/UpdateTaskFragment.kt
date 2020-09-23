@@ -103,8 +103,40 @@ class UpdateTaskFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_update_task -> updateTask()
             R.id.menu_delete_task -> confirmItemDelete()
+            R.id.menu_complete_task-> confirmCompleteTask()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun confirmCompleteTask() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Mark Task as completed")
+        builder.setMessage("Do you want to mark task '${args.currentItem.task.title}' from ${args.currentItem.project.title} as completed?")
+        builder.setPositiveButton("Yes") {
+            //dialogInterface: DialogInterface, i: Int ->
+                _,_-> // short form to above
+            run {val task = args.currentItem.task
+            task.completedDate = Date()
+            taskViewModel.updateTask(task)}
+
+            if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
+                findNavController().navigate(action)
+            } else {
+                val action =
+                    UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(
+                        args.currentItem.task.projectId,
+                        args.currentItem.project.title
+                    )
+                findNavController().navigate(action)
+            }
+            Toast.makeText(requireContext(), "Task '${args.currentItem.task.title}' from ${args.currentItem.project.title} has been mark as completed ", Toast.LENGTH_SHORT).show()
+        }
+        builder.setNegativeButton("No") {
+//                dialogInterface: DialogInterface, i: Int ->
+                _,_-> //short form to above
+        }
+        builder.show()
     }
 
     private fun updateTask() {
@@ -113,7 +145,7 @@ class UpdateTaskFragment : Fragment() {
         val mProject: Project = project_spinner.selectedItem as Project
 
         if (sharedViewModel.validTaskDataFromInput(mTitle)) {
-            val task = Task(args.currentItem.task.id, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay))
+            val task = Task(args.currentItem.task.id, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay), args.currentItem.task.completedDate)
             taskViewModel.updateTask(task)
             Toast.makeText(
                 requireContext(),

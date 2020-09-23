@@ -12,11 +12,19 @@ interface TaskDao {
     fun getAllData(): LiveData<List<Task>>
 
     @Transaction
-    @Query("SELECT * FROM Task where projectId= :projectId order by dueDate, title")
+    @Query("SELECT * FROM Task where projectId= :projectId and completedDate is null order by dueDate, title")
     fun getTasksByProject(projectId: Int): LiveData<List<TaskWithProject>>
 
     @Transaction
-    @Query("SELECT * FROM Task where dueDate < :beforeDate order by dueDate, title")
+    @Query("SELECT * FROM Task where projectId= :projectId order by dueDate, title")
+    fun getAllTasksByProject(projectId: Int): LiveData<List<TaskWithProject>>
+
+    @Transaction
+    @Query("SELECT * FROM Task where projectId= :projectId and completedDate is not null order by dueDate, title")
+    fun getCompletedTasksByProject(projectId: Int): LiveData<List<TaskWithProject>>
+
+    @Transaction
+    @Query("SELECT * FROM Task where dueDate < :beforeDate and completedDate is null order by dueDate, title")
     fun getTasksByBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

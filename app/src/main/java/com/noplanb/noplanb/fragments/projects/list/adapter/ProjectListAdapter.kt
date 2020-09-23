@@ -12,8 +12,15 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
     class MyViewHolder(private val binding: ProjectRowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(project:ProjectWithTasks){
             binding.projectWithTasks = project
-            binding.tasksCount = project.tasks.size.toString()
+            var tasksCount = 0
+            for (t in project.tasks) {
+                if (t.completedDate == null) {
+                    tasksCount++
+                }
+            }
+            binding.tasksCount = tasksCount.toString()
         }
+
         companion object{
             fun from (parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)

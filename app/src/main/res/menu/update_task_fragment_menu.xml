@@ -7,11 +7,17 @@
         android:iconTint="@color/white"
         app:showAsAction="always"
         />
+    <item android:id="@+id/menu_complete_task"
+        android:title="@string/mark_as_complete"
+        android:icon="@drawable/ic_done"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"
+        />
 
     <item android:id="@+id/menu_delete_task"
         android:title="@string/delete_task"
         android:icon="@drawable/ic_delete"
         android:iconTint="@color/white"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
         />
 </menu>

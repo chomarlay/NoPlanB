@@ -86,7 +86,7 @@ class AddTaskFragment : Fragment() {
         val mProject: Project = project_spinner.selectedItem as Project
         if (sharedViewModel.validTaskDataFromInput(mTitle)) {
 
-            val task = Task(0, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay))
+            val task = Task(0, mProject.id, mTitle, mDescription, dueDateToSave(saveYear, saveMonth, saveDay), null)
             taskViewModel.insertTask(task)
             Toast.makeText(
                 requireContext(),
