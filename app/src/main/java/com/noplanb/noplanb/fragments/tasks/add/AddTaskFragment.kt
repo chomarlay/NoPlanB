@@ -44,9 +44,8 @@ class AddTaskFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
-
+        var calendar: Calendar = Calendar.getInstance()
         binding.dueDateBtn.setOnClickListener{
-            val calendar: Calendar = Calendar.getInstance()
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
                 dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
@@ -58,6 +57,11 @@ class AddTaskFragment : Fragment() {
                 dueDatePicker.show()
             }
         }
+        binding.clearDueDateBtn.setOnClickListener{
+            clearDueDate()
+            calendar = Calendar.getInstance()
+        }
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -80,6 +84,12 @@ class AddTaskFragment : Fragment() {
         saveYear = year
     }
 
+    private fun clearDueDate() {
+        binding.dueDateBtn.text = "Schedule"
+        saveDay=0
+        saveMonth=0
+        saveYear=0
+    }
     private fun saveTaskToDb() {
         val mTitle = task_title_et.text.toString()
         val mDescription = task_description_et.text.toString()

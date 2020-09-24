@@ -32,7 +32,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/custom_input"
             android:ems="10"
-            android:hint="Title"
+            android:hint="@string/title"
             android:inputType="textPersonName"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -56,16 +56,31 @@
 
         <Button
             android:id="@+id/due_date_btn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:drawableStart="@drawable/ic_calendar"
-            android:text="Schedule"
+            android:text="@string/schedule"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.052"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/project_spinner" />
+
+        <Button
+            android:id="@+id/clear_due_date_btn"
+            style="@style/Widget.AppCompat.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawableStart="@drawable/ic_calendar"
+            android:text="@string/clear"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/due_date_btn"
             app:layout_constraintTop_toBottomOf="@+id/project_spinner" />
 
         <EditText
@@ -76,7 +91,7 @@
             android:background="@drawable/custom_input"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Description"
+            android:hint="@string/description"
             android:inputType="textMultiLine"
             android:minLines="10"
             android:paddingStart="16dp"
