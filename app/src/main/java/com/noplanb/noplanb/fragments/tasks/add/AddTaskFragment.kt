@@ -33,6 +33,10 @@ class AddTaskFragment : Fragment() {
     private var saveDay: Int =0
     private var saveMonth: Int = 0
     private var saveYear: Int =0
+
+    private var mDay: Int =0
+    private var mMonth: Int = 0
+    private var mYear: Int =0
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,26 +48,33 @@ class AddTaskFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
-        var calendar: Calendar = Calendar.getInstance()
+
+        setShowCalendarDate()
         binding.dueDateBtn.setOnClickListener{
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
                 dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
-                dueDatePicker.updateDate(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+                dueDatePicker.updateDate(mYear, mMonth, mDay)
                 dueDatePicker.show()
             } else { // find a way for my phone  api <=21
                 val dateSetListener  = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
-                val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+                val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener, mYear, mMonth, mDay)
                 dueDatePicker.show()
             }
         }
         binding.clearDueDateBtn.setOnClickListener{
             clearDueDate()
-            calendar = Calendar.getInstance()
         }
 
         setHasOptionsMenu(true)
         return binding.root
+    }
+
+    private fun setShowCalendarDate() {
+        val calendar: Calendar = Calendar.getInstance()
+        mYear = calendar.get(Calendar.YEAR)
+        mMonth = calendar.get(Calendar.MONTH)
+        mDay = calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -82,6 +93,9 @@ class AddTaskFragment : Fragment() {
         saveDay = dayOfMonth
         saveMonth = month
         saveYear = year
+        mDay = dayOfMonth
+        mMonth = month
+        mYear = year
     }
 
     private fun clearDueDate() {
@@ -89,6 +103,8 @@ class AddTaskFragment : Fragment() {
         saveDay=0
         saveMonth=0
         saveYear=0
+        setShowCalendarDate()
+
     }
     private fun saveTaskToDb() {
         val mTitle = task_title_et.text.toString()

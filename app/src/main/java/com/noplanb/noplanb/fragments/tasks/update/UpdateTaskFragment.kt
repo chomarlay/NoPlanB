@@ -29,6 +29,9 @@ class UpdateTaskFragment : Fragment() {
     private var saveDay: Int =0
     private var saveMonth: Int = 0
     private var saveYear: Int =0
+    private var mDay: Int =0
+    private var mMonth: Int = 0
+    private var mYear: Int =0
 
     var _binding : FragmentUpdateTaskBinding? = null
     val binding get() = _binding!!
@@ -46,14 +49,13 @@ class UpdateTaskFragment : Fragment() {
 
         if (args.currentItem.task.dueDate != null) {
             calendar.setTime(args.currentItem.task.dueDate!!)
-            saveDay = calendar.get(Calendar.DAY_OF_MONTH)
-            saveMonth = calendar.get(Calendar.MONTH)
-            saveYear = calendar.get(Calendar.YEAR)
             setDueDate(
-                saveYear,
-                saveMonth,
-                saveDay,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH),
             )
+        } else {
+            setShowCalendarDate()
         }
 
         binding.dueDateBtn.setOnClickListener {
@@ -66,17 +68,17 @@ class UpdateTaskFragment : Fragment() {
                         dayOfMonth
                     )
                 }
-                dueDatePicker.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
+                dueDatePicker.updateDate(mYear, mMonth, mDay)
                 dueDatePicker.show()
             } else {
                 val dateSetListener  = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
-                val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener, calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH))
+                val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener,mYear, mMonth, mDay)
                 dueDatePicker.show()
             }
         }
         binding.clearDueDateBtn.setOnClickListener{
             clearDueDate()
-            calendar = Calendar.getInstance()
+
         }
         setHasOptionsMenu(true)
         return binding.root
@@ -86,6 +88,10 @@ class UpdateTaskFragment : Fragment() {
         saveDay = dayOfMonth
         saveMonth = month
         saveYear = year
+        mDay = dayOfMonth
+        mMonth = month
+        mYear = year
+
     }
 
     private fun clearDueDate() {
@@ -93,6 +99,13 @@ class UpdateTaskFragment : Fragment() {
         saveDay=0
         saveMonth=0
         saveYear=0
+        setShowCalendarDate()
+    }
+    private fun setShowCalendarDate() {
+        val calendar: Calendar = Calendar.getInstance()
+        mYear = calendar.get(Calendar.YEAR)
+        mMonth = calendar.get(Calendar.MONTH)
+        mDay = calendar.get(Calendar.DAY_OF_MONTH)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
