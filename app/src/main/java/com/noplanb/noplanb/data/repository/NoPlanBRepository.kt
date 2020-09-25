@@ -50,9 +50,9 @@ class NoPlanBRepository(context: Context) {
         return taskDao.getTasksByProject(projectId)
     }
 
-    // get all tasks
+    // get all tasks including completed tasks
     fun getAllTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
-        return taskDao.getTasksByProject(projectId)
+        return taskDao.getAllTasksByProject(projectId)
     }
 
     // get tasks that are marked as completed

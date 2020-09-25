@@ -19,6 +19,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getTasksByProject(projectId)
     }
 
+    fun getAllTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
+        return repository.getAllTasksByProject(projectId)
+    }
     fun getTasksDueBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>> {
         return repository.getTasksDueBeforeDate(beforeDate)
     }

@@ -1,12 +1,12 @@
 package com.noplanb.noplanb.fragments.projects.list
 
 import android.os.Bundle
+import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter

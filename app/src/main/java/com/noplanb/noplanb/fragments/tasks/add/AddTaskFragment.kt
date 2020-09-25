@@ -53,6 +53,7 @@ class AddTaskFragment : Fragment() {
         binding.dueDateBtn.setOnClickListener{
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
+                dueDatePicker.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
                 dueDatePicker.updateDate(mYear, mMonth, mDay)
                 dueDatePicker.show()
@@ -82,7 +83,7 @@ class AddTaskFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId === R.id.menu_save_task) {
+        if (item.itemId == R.id.menu_save_task) {
             saveTaskToDb()
         }
 

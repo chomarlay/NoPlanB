@@ -7,26 +7,37 @@
     android:background="@color/colorPrimaryDark">
 
 
-    <ImageView
-        android:id="@+id/logoView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_agenda" />
+
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:id="@+id/noPlanBView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/rock_salt"
+        android:layout_marginLeft="20dp"
         android:text="@string/app_name"
         android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/logoView"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="serif"
+        android:text="Believe -> Effort-> Action -> Result"
+        android:textAllCaps="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noPlanBView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

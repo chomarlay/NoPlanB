@@ -12,7 +12,7 @@ interface ProjectDao {
     fun getAllData(): LiveData<List<Project>>
 
     @Transaction
-    @Query("SELECT * FROM Project")
+    @Query("SELECT * FROM Project where id > 1")
     fun getProjectsWithTasks(): LiveData<List<ProjectWithTasks>>
 
     @Transaction

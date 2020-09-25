@@ -19,8 +19,12 @@
     <string name="delete_project">Delete Project</string>
     <string name="delete_task">Delete Task</string>
     <string name="mark_as_complete">Mark as complete</string>
+    <string name="mark_as_incomplete">Mark as incomplete</string>
     <string name="title">Title</string>
     <string name="schedule">Schedule</string>
     <string name="description">Description</string>
     <string name="clear">Clear</string>
+    <string name="edit_project">Edit Project</string>
+    <string name="overdue">Overdue</string>
+    <string name="completed">Completed</string>
 </resources>

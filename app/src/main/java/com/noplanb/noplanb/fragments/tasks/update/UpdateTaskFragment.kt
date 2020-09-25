@@ -4,7 +4,9 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,7 @@ import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateTaskBinding
 import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.dueDateToSave
+import com.noplanb.noplanb.utils.isDueDateOverdue
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -45,6 +48,21 @@ class UpdateTaskFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.projectViewModel = projectViewModel
         binding.taskViewModel = taskViewModel
+
+        val statusTv = binding.statusTv
+        if (args.currentItem.task.completedDate != null) {
+            statusTv.visibility = TextView.VISIBLE
+            statusTv.text = statusTv.context.getString(R.string.completed)
+            statusTv.setTextColor( ContextCompat.getColor(statusTv.context, R.color.colorCompleted))
+        } else if (isDueDateOverdue(args.currentItem.task.dueDate)) {
+            statusTv.visibility = TextView.VISIBLE
+            statusTv.text = statusTv.context.getString(R.string.overdue)
+            statusTv.setTextColor( ContextCompat.getColor(statusTv.context, R.color.colorOverdue))
+
+        }  else {
+            statusTv.visibility = TextView.GONE
+        }
+
         var calendar: Calendar = Calendar.getInstance()
 
         if (args.currentItem.task.dueDate != null) {
@@ -61,6 +79,7 @@ class UpdateTaskFragment : Fragment() {
         binding.dueDateBtn.setOnClickListener {
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
                 val dueDatePicker = DatePickerDialog(requireContext())
+                dueDatePicker.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dueDatePicker.setOnDateSetListener { view, year, month, dayOfMonth ->
                     setDueDate(
                         year,
@@ -116,21 +135,31 @@ class UpdateTaskFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_update_task -> updateTask()
             R.id.menu_delete_task -> confirmItemDelete()
-            R.id.menu_complete_task-> confirmCompleteTask()
+            R.id.menu_complete_task-> confirmCompleteTask("completed", true)
+            R.id.menu_incomplete_task-> confirmCompleteTask("incomplete", false)
         }
         return super.onOptionsItemSelected(item)
     }
 
-    private fun confirmCompleteTask() {
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val menuCompleteTask: MenuItem = menu.findItem(R.id.menu_complete_task);
+        val menuIncompleteTask: MenuItem = menu.findItem(R.id.menu_incomplete_task);
+
+        menuCompleteTask.setVisible(binding.args!!.currentItem.task.completedDate==null)
+        menuIncompleteTask.setVisible(binding.args!!.currentItem.task.completedDate!=null)
+
+        super.onPrepareOptionsMenu(menu)
+    }
+    private fun confirmCompleteTask(actionMsg: String, markAsComplete: Boolean) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("Mark Task as completed")
-        builder.setMessage("Do you want to mark task '${args.currentItem.task.title}' from ${args.currentItem.project.title} as completed?")
+        builder.setTitle("Mark task as ${actionMsg}")
+        builder.setMessage("Do you want to mark task '${args.currentItem.task.title}' from ${args.currentItem.project.title} as ${actionMsg}?")
         builder.setPositiveButton("Yes") {
             //dialogInterface: DialogInterface, i: Int ->
                 _,_-> // short form to above
             run {val task = args.currentItem.task
-            task.completedDate = Date()
-            taskViewModel.updateTask(task)}
+                task.completedDate = if (markAsComplete) Date() else null
+                taskViewModel.updateTask(task)}
 
             if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
                 val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
@@ -143,7 +172,7 @@ class UpdateTaskFragment : Fragment() {
                     )
                 findNavController().navigate(action)
             }
-            Toast.makeText(requireContext(), "Task '${args.currentItem.task.title}' from ${args.currentItem.project.title} has been mark as completed ", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Task '${args.currentItem.task.title}' from ${args.currentItem.project.title} has been mark as ${actionMsg} ", Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No") {
 //                dialogInterface: DialogInterface, i: Int ->

@@ -4,6 +4,9 @@
     <color name="colorPrimaryDark">#2962FF</color>
     <color name="colorAccent">#000DFF</color>
 
+    <color name="colorCompleted">#00796B</color>
+    <color name="colorOverdue">#FF4646</color>
+
     <color name="white">#FFFFFF</color>
     <color name="lightGray">#E6E6E6</color>
     <color name="darkGray">#4B4B4B</color>
