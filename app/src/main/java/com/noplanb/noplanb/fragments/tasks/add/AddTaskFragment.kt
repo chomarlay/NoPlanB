@@ -60,6 +60,7 @@ class AddTaskFragment : Fragment() {
             } else { // find a way for my phone  api <=21
                 val dateSetListener  = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
                 val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener, mYear, mMonth, mDay)
+                dueDatePicker.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dueDatePicker.show()
             }
         }

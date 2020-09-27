@@ -92,6 +92,7 @@ class UpdateTaskFragment : Fragment() {
             } else {
                 val dateSetListener  = DatePickerDialog.OnDateSetListener{ view, year, month, dayOfMonth -> setDueDate(year, month, dayOfMonth) }
                 val dueDatePicker = DatePickerDialog(requireContext(),dateSetListener,mYear, mMonth, mDay)
+                dueDatePicker.datePicker.minDate = Calendar.getInstance().timeInMillis
                 dueDatePicker.show()
             }
         }
