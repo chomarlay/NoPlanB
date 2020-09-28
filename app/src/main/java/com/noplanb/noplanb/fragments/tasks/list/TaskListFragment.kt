@@ -2,19 +2,26 @@ package com.noplanb.noplanb.fragments.tasks.list
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.Project
+import com.noplanb.noplanb.data.models.Task
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTaskListBinding
+import com.noplanb.noplanb.fragments.tasks.list.adapter.SwipeToMarkAsCompleted
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.hideKeyboard
+import java.util.*
 
 class TaskListFragment : Fragment() {
     private val args by navArgs<TaskListFragmentArgs> ()
@@ -74,6 +81,36 @@ class TaskListFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun swipeToMarkAsCompleted(recyclerView: RecyclerView) {
+        val swipeToMarkAsCompletedCallback = object: SwipeToMarkAsCompleted() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val itemToMarkAsCompleted = taskListAdapter.tasksWithProject[viewHolder.adapterPosition]
+                val task = itemToMarkAsCompleted.task
+                if (task.completedDate == null) {
+                    task.completedDate = Date()
+                    taskViewModel.updateTask(task)
+                } else {
+                    Toast.makeText(requireContext(), "item '${task.title}' is already marked as completed.", Toast.LENGTH_SHORT).show()
+                }
+                taskListAdapter.notifyItemChanged(viewHolder.adapterPosition)
+                restoreMarkAsCompleted(viewHolder.itemView, task, viewHolder.adapterPosition)
+
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeToMarkAsCompletedCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreMarkAsCompleted(view: View, completedTask: Task, position: Int) {
+        val snackBar = Snackbar.make(view, "Task '${completedTask.title}' marked as completed.", Snackbar.LENGTH_LONG)
+        snackBar.setAction("Undo"){
+            completedTask.completedDate = null
+            taskViewModel.updateTask(completedTask)
+            taskListAdapter.notifyItemChanged(position)
+        }
+        snackBar.show()
+    }
     private fun editProject() {
         val action =
             TaskListFragmentDirections.actionTaskListFragmentToUpdateProjectFragment(
@@ -99,6 +136,7 @@ class TaskListFragment : Fragment() {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
+        swipeToMarkAsCompleted(recyclerView)
     }
 
     override fun onDestroy() {

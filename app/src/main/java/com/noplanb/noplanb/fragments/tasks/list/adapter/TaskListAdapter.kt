@@ -12,7 +12,9 @@ import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.isDueDateOverdue
 
 class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
-    var tasksWithProject: List<TaskWithProject>? = null
+//    var tasksWithProject: List<TaskWithProject>? = null
+    var tasksWithProject= emptyList<TaskWithProject>()
+
     var fromList: Int = NpbConstants.TASK_LIST_TODAY
     class MyViewHolder(private val binding: TaskRowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(taskWithProject: TaskWithProject, fromList: Int, isOverdue: Boolean){
