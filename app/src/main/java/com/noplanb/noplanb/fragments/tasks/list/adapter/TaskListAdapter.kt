@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.models.TaskWithProject
@@ -66,9 +67,12 @@ class TaskListAdapter(): RecyclerView.Adapter<TaskListAdapter.MyViewHolder>() {
     }
 
     fun setData(tasksWithProject: List<TaskWithProject>, fromList: Int) {
+        val taskDiffUtil = TaskDiffUtil(this.tasksWithProject, tasksWithProject)
+        val taskDiffResult = DiffUtil.calculateDiff(taskDiffUtil)
         this.tasksWithProject = tasksWithProject
         this.fromList = fromList
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
+        taskDiffResult.dispatchUpdatesTo(this)
     }
 
 }
