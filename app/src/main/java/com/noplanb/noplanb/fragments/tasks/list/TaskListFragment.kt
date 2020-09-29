@@ -3,6 +3,8 @@ package com.noplanb.noplanb.fragments.tasks.list
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -23,7 +25,7 @@ import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.hideKeyboard
 import java.util.*
 
-class TaskListFragment : Fragment() {
+class TaskListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val args by navArgs<TaskListFragmentArgs> ()
     private var _binding: FragmentTaskListBinding? = null
     private val binding get()=_binding!!
@@ -61,12 +63,16 @@ class TaskListFragment : Fragment() {
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.task_list_fragment_menu, menu)
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as SearchView
+        searchView.isSubmitButtonEnabled = true
+        searchView.setOnQueryTextListener(this)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
-        val menuEditProject: MenuItem = menu.findItem(R.id.menu_edit_project);
-        val menuShowCompletedTask: MenuItem = menu.findItem(R.id.menu_show_completed_tasks);
-        val menuHideCompletedTask: MenuItem = menu.findItem(R.id.menu_hide_completed_tasks);
+        val menuEditProject: MenuItem = menu.findItem(R.id.menu_edit_project)
+        val menuShowCompletedTask: MenuItem = menu.findItem(R.id.menu_show_completed_tasks)
+        val menuHideCompletedTask: MenuItem = menu.findItem(R.id.menu_hide_completed_tasks)
         menuEditProject.setVisible(projectId != 1)
         menuShowCompletedTask.setVisible(showCompletedTaskMenu)
         menuHideCompletedTask.setVisible(!showCompletedTaskMenu)
@@ -82,6 +88,12 @@ class TaskListFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
+//    private fun searchTasks (search: MenuItem) {
+//        val searchView = search.actionView as SearchView
+//        searchView.isSubmitButtonEnabled = true
+//        searchView.setOnQueryTextListener(this)
+//    }
+
     private fun swipeToMarkAsCompleted(recyclerView: RecyclerView) {
         val swipeToMarkAsCompletedCallback = object: SwipeToMarkAsCompleted() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -90,11 +102,13 @@ class TaskListFragment : Fragment() {
                 if (task.completedDate == null) {
                     task.completedDate = Date()
                     taskViewModel.updateTask(task)
+                    taskListAdapter.notifyItemChanged(viewHolder.adapterPosition)
+                    restoreMarkAsCompleted(viewHolder.itemView, task, viewHolder.adapterPosition)
                 } else {
-                    Toast.makeText(requireContext(), "item '${task.title}' is already marked as completed.", Toast.LENGTH_SHORT).show()
+                    taskListAdapter.notifyItemChanged(viewHolder.adapterPosition)
+                    Toast.makeText(requireContext(), "Task '${task.title}' is already marked as completed.", Toast.LENGTH_SHORT).show()
                 }
-                taskListAdapter.notifyItemChanged(viewHolder.adapterPosition)
-                restoreMarkAsCompleted(viewHolder.itemView, task, viewHolder.adapterPosition)
+
 
             }
         }
@@ -109,6 +123,7 @@ class TaskListFragment : Fragment() {
             taskViewModel.updateTask(completedTask)
             taskListAdapter.notifyItemChanged(position)
         }
+        snackBar.setActionTextColor(ContextCompat.getColor(snackBar.context, R.color.colorPrimary))
         snackBar.show()
     }
     private fun editProject() {
@@ -132,6 +147,33 @@ class TaskListFragment : Fragment() {
 
 
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null) {
+            searchData(query)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null) {
+            searchData(query)
+        }
+        return true
+    }
+
+    private fun searchData (query: String) {
+        if (!showCompletedTaskMenu) { // show completed task menu is now visible, i.e currently showing all tasks including completed ones then search for all
+            taskViewModel.getAllTasksByProjectAndTitle(projectId, "%${query}%").observe(
+                viewLifecycleOwner,
+                { data -> taskListAdapter.setData(data, NpbConstants.TASK_LIST_PROJ) })
+        } else {
+            taskViewModel.getTasksByProjectAndTitle(projectId, "%${query}%").observe(
+                viewLifecycleOwner,
+                { data -> taskListAdapter.setData(data, NpbConstants.TASK_LIST_PROJ) })
+        }
+    }
+
     private fun setupRecyclerView() {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
@@ -143,5 +185,7 @@ class TaskListFragment : Fragment() {
         super.onDestroy()
         _binding = null // very important to avoid memory leak
     }
+
+
 
 }

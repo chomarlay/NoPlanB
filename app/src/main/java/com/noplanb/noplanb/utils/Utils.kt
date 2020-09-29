@@ -23,7 +23,7 @@ fun isDueDateOverdue(dueDate: Date?): Boolean {
     calendar[Calendar.MINUTE] = 0
     calendar[Calendar.SECOND] = 0
     calendar[Calendar.MILLISECOND] = 0
-    return (dueDate != null && dueDate!! < calendar.time)
+    return (dueDate != null && dueDate < calendar.time)
 
 }
 

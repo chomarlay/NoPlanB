@@ -1,7 +1,6 @@
 package com.noplanb.noplanb.data.viewmodel
 
 import android.text.TextUtils
-import com.noplanb.noplanb.data.models.Project
 import java.util.*
 
 class SharedViewModel {
@@ -26,4 +25,6 @@ class SharedViewModel {
 
         return "${String.format("%02d", day)}-${String.format("%02d", month)}-${year}"
     }
+
+
 }

@@ -2,11 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item
+        android:id="@+id/menu_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
     <item android:id="@+id/menu_edit_project"
         android:title="@string/edit_project"
         android:icon="@drawable/ic_edit"
         android:iconTint="@color/white"
-        app:showAsAction="always"
+        app:showAsAction="never"
         />
 
     <item android:id="@+id/menu_show_completed_tasks"

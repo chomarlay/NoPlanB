@@ -27,4 +27,5 @@
     <string name="edit_project">Edit Project</string>
     <string name="overdue">Overdue</string>
     <string name="completed">Completed</string>
+    <string name="search">Search</string>
 </resources>

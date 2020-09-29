@@ -40,7 +40,7 @@ class NoPlanBRepository(context: Context) {
     }
 
     // Task
-
+    //get non completed tasks due before a particular date
     fun getTasksDueBeforeDate(beforeDate: Date): LiveData<List<TaskWithProject>> {
         return taskDao.getTasksByBeforeDate(beforeDate)
     }
@@ -55,10 +55,21 @@ class NoPlanBRepository(context: Context) {
         return taskDao.getAllTasksByProject(projectId)
     }
 
-    // get tasks that are marked as completed
-    fun getCompletedTasksByProject(projectId: Int): LiveData<List<TaskWithProject>> {
-        return taskDao.getTasksByProject(projectId)
+    //get non completed tasks due before a particular date and title
+    fun getTasksDueBeforeDateAndTitle(beforeDate: Date, title: String): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByBeforeDateAndTitle(beforeDate, title)
     }
+
+    // get tasks that are not marked as completed and title
+    fun getTasksByProjectAndTitle(projectId: Int, title: String): LiveData<List<TaskWithProject>> {
+        return taskDao.getTasksByProjectAndTitle(projectId, title)
+    }
+
+    // get all tasks including completed tasks and title
+    fun getAllTasksByProjectAndTitle(projectId: Int, title: String): LiveData<List<TaskWithProject>> {
+        return taskDao.getAllTasksByProjectAndTitle(projectId, title)
+    }
+
     suspend fun insertTask(task: Task){
         taskDao.insertData(task)
     }

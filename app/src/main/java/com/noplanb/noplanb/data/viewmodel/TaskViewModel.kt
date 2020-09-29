@@ -26,6 +26,21 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getTasksDueBeforeDate(beforeDate)
     }
 
+    //get non completed tasks due before a particular date and title
+    fun getTasksDueBeforeDateAndTitle(beforeDate: Date, title: String): LiveData<List<TaskWithProject>> {
+        return repository.getTasksDueBeforeDateAndTitle(beforeDate, title)
+    }
+
+    // get tasks that are not marked as completed and title
+    fun getTasksByProjectAndTitle(projectId: Int, title: String): LiveData<List<TaskWithProject>> {
+        return repository.getTasksByProjectAndTitle(projectId, title)
+    }
+
+    // get all tasks including completed tasks and title
+    fun getAllTasksByProjectAndTitle(projectId: Int, title: String): LiveData<List<TaskWithProject>> {
+        return repository.getAllTasksByProjectAndTitle(projectId, title)
+    }
+
     fun insertTask (task: Task) {
         viewModelScope.launch (Dispatchers.IO) {
             repository.insertTask(task)
