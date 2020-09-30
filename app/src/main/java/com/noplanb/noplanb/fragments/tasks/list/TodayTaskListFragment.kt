@@ -21,6 +21,7 @@ import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
 import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.dueBeforeDate
 import com.noplanb.noplanb.utils.hideKeyboard
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import java.util.*
 
 class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
@@ -63,6 +64,9 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
+        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration= 300
+        }
         swipeToMarkAsCompleted(recyclerView)
     }
 

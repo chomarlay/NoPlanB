@@ -11,6 +11,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter
 import com.noplanb.noplanb.utils.hideKeyboard
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ProjectListFragment : Fragment() {
     private var _binding: FragmentProjectListBinding? = null
@@ -26,11 +27,12 @@ class ProjectListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        setupRecyclerView()
+
         projectViewModel.getProjectsWithTasks.observe(viewLifecycleOwner, {
                 data->projectListAdapter.setData(data)
             }
         )
+        setupRecyclerView()
         // hide soft keyboard
         hideKeyboard(requireActivity())
         return binding.root
@@ -40,6 +42,9 @@ class ProjectListFragment : Fragment() {
         val recyclerView = binding.projectRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = projectListAdapter
+        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+            addDuration= 300
+        }
     }
 
     override fun onDestroy() {

@@ -2,8 +2,8 @@ package com.noplanb.noplanb.fragments.projects.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.noplanb.noplanb.data.models.Project
 import com.noplanb.noplanb.data.models.ProjectWithTasks
 import com.noplanb.noplanb.databinding.ProjectRowBinding
 
@@ -30,7 +30,7 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        var currentItem = projectList[position]
+        val currentItem = projectList[position]
         holder.bind(currentItem)
     }
 
@@ -39,7 +39,11 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
     }
 
     fun setData(projectList: List<ProjectWithTasks>) {
+        val projectDiffUtil = ProjectDiffUtil(this.projectList, projectList)
+        val projectDiffResult = DiffUtil.calculateDiff(projectDiffUtil)
         this.projectList = projectList
-        notifyDataSetChanged()
+//        notifyDataSetChanged()  // this will not work with the wasabeef animation,  changing to diffUtils works
+        projectDiffResult.dispatchUpdatesTo(this)
+
     }
 }

@@ -13,13 +13,23 @@
     >
         <action
             android:id="@+id/action_taskListFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
+            app:destination="@id/addTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_taskListFragment_to_updateTaskFragment"
-            app:destination="@id/updateTaskFragment" />
+            app:destination="@id/updateTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_taskListFragment_to_projectListFragment"
-            app:destination="@id/projectListFragment" />
+            app:destination="@id/projectListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right" />
         <argument
             android:name="projectId"
             app:argType="integer"
@@ -31,7 +41,11 @@
             android:defaultValue="NoPlanB" />
         <action
             android:id="@+id/action_taskListFragment_to_updateProjectFragment"
-            app:destination="@id/updateProjectFragment" />
+            app:destination="@id/updateProjectFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
 
     </fragment>
     <fragment
@@ -41,10 +55,18 @@
         tools:layout="@layout/fragment_project_list" >
         <action
             android:id="@+id/action_projectListFragment_to_addProjectFragment"
-            app:destination="@id/addProjectFragment" />
+            app:destination="@id/addProjectFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_projectListFragment_to_taskListFragment"
-            app:destination="@id/taskListFragment" />
+            app:destination="@id/taskListFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
@@ -54,6 +76,8 @@
         <action
             android:id="@+id/action_addTaskFragment_to_taskListFragment"
             app:destination="@id/taskListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/taskListFragment"
             app:popUpToInclusive="true" />
         <argument
@@ -68,6 +92,8 @@
         <action
             android:id="@+id/action_addTaskFragment_to_todayTaskListFragment"
             app:destination="@id/todayTaskListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/todayTaskListFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -79,11 +105,15 @@
         <action
             android:id="@+id/action_updateTaskFragment_to_taskListFragment"
             app:destination="@id/taskListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/taskListFragment"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_updateTaskFragment_to_todayTaskListFragment"
             app:destination="@id/todayTaskListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/todayTaskListFragment"
             app:popUpToInclusive="true" />
 
@@ -103,6 +133,8 @@
         <action
             android:id="@+id/action_addProjectFragment_to_projectListFragment"
             app:destination="@id/projectListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/projectListFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -117,6 +149,8 @@
         <action
             android:id="@+id/action_updateProjectFragment_to_taskListFragment"
             app:destination="@id/taskListFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
             app:popUpTo="@id/taskListFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -127,9 +161,17 @@
         tools:layout="@layout/fragment_today_task_list" >
         <action
             android:id="@+id/action_todayTaskListFragment_to_updateTaskFragment"
-            app:destination="@id/updateTaskFragment" />
+            app:destination="@id/updateTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
         <action
             android:id="@+id/action_todayTaskListFragment_to_addTaskFragment"
-            app:destination="@id/addTaskFragment" />
+            app:destination="@id/addTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
     </fragment>
 </navigation>
