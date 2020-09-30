@@ -8,12 +8,16 @@ import com.noplanb.noplanb.data.models.ProjectWithTasks
 @Dao
 interface ProjectDao {
 
-    @Query("SELECT * FROM Project")
+    @Query("SELECT * FROM Project where completedDate is null")
     fun getAllData(): LiveData<List<Project>>
 
     @Transaction
-    @Query("SELECT * FROM Project where id > 1")
+    @Query("SELECT * FROM Project where id > 1 and completedDate is null")
     fun getProjectsWithTasks(): LiveData<List<ProjectWithTasks>>
+
+    @Transaction
+    @Query("SELECT * FROM Project where id > 1")
+    fun getAllProjectsWithTasks(): LiveData<List<ProjectWithTasks>>
 
     @Transaction
     @Query("SELECT * FROM Project where id=:projectId")

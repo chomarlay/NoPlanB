@@ -7,6 +7,19 @@
         android:iconTint="@color/white"
         app:showAsAction="always"
         />
+    <item android:id="@+id/menu_complete_project"
+        android:title="@string/mark_as_complete"
+        android:icon="@drawable/ic_completed"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"
+        />
+
+    <item android:id="@+id/menu_incomplete_project"
+        android:title="@string/mark_as_incomplete"
+        android:icon="@drawable/ic_undo"
+        android:iconTint="@color/white"
+        app:showAsAction="ifRoom"
+        />
 
     <item android:id="@+id/menu_delete_project"
         android:title="@string/delete_project"

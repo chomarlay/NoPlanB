@@ -10,6 +10,7 @@ import com.noplanb.noplanb.R
 import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.databinding.FragmentProjectListBinding
 import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectListAdapter
+import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.hideKeyboard
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
@@ -19,7 +20,7 @@ class ProjectListFragment : Fragment() {
 
     private val projectViewModel: ProjectViewModel by viewModels()
     private val projectListAdapter: ProjectListAdapter by lazy { ProjectListAdapter() }
-
+    private var showCompletedProjectsMenu = true
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,11 +34,46 @@ class ProjectListFragment : Fragment() {
             }
         )
         setupRecyclerView()
+        setHasOptionsMenu(true)
         // hide soft keyboard
         hideKeyboard(requireActivity())
         return binding.root
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.project_list_fragment_menu, menu)
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_show_completed_projects -> showHideCompletedProjects()
+            R.id.menu_hide_completed_projects -> showHideCompletedProjects()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val menuShowCompletedProject: MenuItem = menu.findItem(R.id.menu_show_completed_projects)
+        val menuHideCompletedProject: MenuItem = menu.findItem(R.id.menu_hide_completed_projects)
+        menuShowCompletedProject.setVisible(showCompletedProjectsMenu)
+        menuHideCompletedProject.setVisible(!showCompletedProjectsMenu)
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun showHideCompletedProjects() {
+        if (showCompletedProjectsMenu) {
+            projectViewModel.getAllProjectsWithTasks().observe(
+                viewLifecycleOwner,
+                { data -> projectListAdapter.setData(data) })
+        } else {
+            projectViewModel.getProjectsWithTasks.observe(
+                viewLifecycleOwner,
+                { data -> projectListAdapter.setData(data) })
+        }
+        showCompletedProjectsMenu = !showCompletedProjectsMenu
+
+    }
     private fun setupRecyclerView() {
         val recyclerView = binding.projectRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())

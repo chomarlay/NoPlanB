@@ -41,7 +41,7 @@ class AddProjectFragment : Fragment() {
         val mTitle = title_et.text.toString()
         val mDescription = description_et.text.toString()
         if (sharedViewModel.validProjectDataFromInput(mTitle)) {
-            val project = Project(0,mTitle,mDescription)
+            val project = Project(0,mTitle,mDescription, null)
             projectViewModel.insertProject(project)
             Toast.makeText(requireContext(),"Project saved successfully", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_addProjectFragment_to_projectListFragment)

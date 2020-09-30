@@ -12,7 +12,7 @@ class ProjectListAdapter(): RecyclerView.Adapter<ProjectListAdapter.MyViewHolder
     class MyViewHolder(private val binding: ProjectRowBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(project:ProjectWithTasks){
             binding.projectWithTasks = project
-            val tasksCount = project.tasks.filter { p->p.completedDate == null }.count()
+            val tasksCount = project.tasks.filter { t->t.completedDate == null }.count()
             binding.tasksCount = tasksCount.toString()
         }
 

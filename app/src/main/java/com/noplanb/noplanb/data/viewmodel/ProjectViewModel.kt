@@ -20,6 +20,9 @@ class ProjectViewModel( application: Application) : AndroidViewModel(application
         getProjectsWithTasks = repository.getProjectsWithTasks
     }
 
+    fun getAllProjectsWithTasks(): LiveData<List<ProjectWithTasks>> {
+        return repository.getAllProjectsWithTasks()
+    }
     fun getProjectWithTasks(projectId: Int): LiveData<ProjectWithTasks> {
         return repository.getProjectWithTasks(projectId)
     }

@@ -28,4 +28,8 @@
     <string name="overdue">Overdue</string>
     <string name="completed">Completed</string>
     <string name="search">Search</string>
+    <string name="show_completed_projects">Show completed projects</string>
+    <string name="hide_completed_projects">Hide completed projects</string>
+    <string name="show_completed_tasks">Show completed tasks</string>
+    <string name="hide_completed_tasks">Hide completed tasks</string>
 </resources>

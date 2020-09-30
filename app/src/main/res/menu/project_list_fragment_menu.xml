@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_show_completed_projects"
+        android:title="@string/show_completed_projects"
+        android:icon="@drawable/ic_completed"
+        android:iconTint="@color/white"
+        app:showAsAction="never"
+        />
+
+    <item android:id="@+id/menu_hide_completed_projects"
+        android:title="@string/hide_completed_projects"
+        android:icon="@drawable/ic_completed"
+        android:iconTint="@color/white"
+        app:showAsAction="never"
+        />
+</menu>

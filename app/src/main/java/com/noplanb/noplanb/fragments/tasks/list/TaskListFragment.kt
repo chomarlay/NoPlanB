@@ -89,12 +89,6 @@ class TaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         return super.onOptionsItemSelected(item)
     }
 
-//    private fun searchTasks (search: MenuItem) {
-//        val searchView = search.actionView as SearchView
-//        searchView.isSubmitButtonEnabled = true
-//        searchView.setOnQueryTextListener(this)
-//    }
-
     private fun swipeToMarkAsCompleted(recyclerView: RecyclerView) {
         val swipeToMarkAsCompletedCallback = object: SwipeToMarkAsCompleted() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
@@ -145,7 +139,6 @@ class TaskListFragment : Fragment(), SearchView.OnQueryTextListener {
                 { data -> taskListAdapter.setData(data, NpbConstants.TASK_LIST_PROJ) })
         }
         showCompletedTaskMenu = !showCompletedTaskMenu
-
 
     }
 

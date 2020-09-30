@@ -144,7 +144,7 @@ class UpdateTaskFragment : Fragment() {
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         val menuCompleteTask: MenuItem = menu.findItem(R.id.menu_complete_task);
-        val menuIncompleteTask: MenuItem = menu.findItem(R.id.menu_incomplete_task);
+        val menuIncompleteTask: MenuItem = menu.findItem(R.id.menu_incomplete_task)
 
         menuCompleteTask.setVisible(binding.args!!.currentItem.task.completedDate==null)
         menuIncompleteTask.setVisible(binding.args!!.currentItem.task.completedDate!=null)

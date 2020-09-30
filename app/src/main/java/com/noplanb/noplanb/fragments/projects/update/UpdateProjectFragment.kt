@@ -15,6 +15,7 @@ import com.noplanb.noplanb.data.viewmodel.ProjectViewModel
 import com.noplanb.noplanb.data.viewmodel.SharedViewModel
 import com.noplanb.noplanb.databinding.FragmentUpdateProjectBinding
 import kotlinx.android.synthetic.main.fragment_update_project.*
+import java.util.*
 
 class UpdateProjectFragment : Fragment() {
     private val args by navArgs<UpdateProjectFragmentArgs> ()  // see fragment_update_project and main_nav for  currentItem args declartion
@@ -41,9 +42,48 @@ class UpdateProjectFragment : Fragment() {
         when (item.itemId) {
             R.id.menu_update_project -> updateProject()
             R.id.menu_delete_project -> confirmItemDelete()
+            R.id.menu_complete_project-> confirmCompleteProject("completed", true)
+            R.id.menu_incomplete_project-> confirmCompleteProject("incomplete", false)
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val menuCompleteProject: MenuItem = menu.findItem(R.id.menu_complete_project);
+        val menuIncompleteProject: MenuItem = menu.findItem(R.id.menu_incomplete_project)
+
+        menuCompleteProject.setVisible(binding.args!!.currentItem.completedDate==null)
+        menuIncompleteProject.setVisible(binding.args!!.currentItem.completedDate!=null)
+
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun confirmCompleteProject(actionMsg: String, markAsComplete: Boolean) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("Mark project as ${actionMsg}")
+        builder.setMessage("Do you want to mark project '${args.currentItem.title}' as ${actionMsg} ?")
+        builder.setPositiveButton("Yes") {
+            //dialogInterface: DialogInterface, i: Int ->
+                _,_-> // short form to above
+            run {
+                val project = args.currentItem
+                project.completedDate = if (markAsComplete) Date() else null
+                projectViewModel.updateProject(project)
+            }
+
+            val action = UpdateProjectFragmentDirections.actionUpdateProjectFragmentToTaskListFragment(
+                args.currentItem.id, args.currentItem.title
+            )
+            findNavController().navigate(action)
+            Toast.makeText(requireContext(), "Project '${args.currentItem.title}' has been marked as ${actionMsg}.", Toast.LENGTH_SHORT).show()
+
+        }
+        builder.setNegativeButton("No") {
+//                dialogInterface: DialogInterface, i: Int ->
+                _,_-> //short form to above
+        }
+        builder.show()
     }
 
     private fun confirmItemDelete() {
@@ -68,7 +108,7 @@ class UpdateProjectFragment : Fragment() {
         val mTitle = current_title_et.text.toString()
         val mDescription = current_description_et.text.toString()
         if (sharedViewModel.validProjectDataFromInput(mTitle)) {
-            val project = Project(args.currentItem.id,mTitle,mDescription)
+            val project = Project(args.currentItem.id,mTitle,mDescription, args.currentItem.completedDate)
             projectViewModel.updateProject(project)
             val action = UpdateProjectFragmentDirections.actionUpdateProjectFragmentToTaskListFragment(
                 args.currentItem.id, mTitle
