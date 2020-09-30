@@ -28,7 +28,7 @@ class ProjectListFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentProjectListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-
+        showCompletedProjectsMenu = true
         projectViewModel.getProjectsWithTasks.observe(viewLifecycleOwner, {
                 data->projectListAdapter.setData(data)
             }
