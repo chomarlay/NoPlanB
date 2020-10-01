@@ -216,6 +216,10 @@ class UpdateTaskFragment : Fragment() {
             if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
                 val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
                 findNavController().navigate(action)
+            } else if(args.fromList == NpbConstants.TASK_LIST_7DAYS) {
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment(7)
+
+                findNavController().navigate(action)
             } else {
                 val action =
                     UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(
