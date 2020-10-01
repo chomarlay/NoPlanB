@@ -78,9 +78,9 @@ class ProjectListFragment : Fragment() {
         val recyclerView = binding.projectRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = projectListAdapter
-        recyclerView.itemAnimator = SlideInUpAnimator().apply {
-            addDuration= 300
-        }
+//        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+//            addDuration= 300
+//        }
     }
 
     override fun onDestroy() {

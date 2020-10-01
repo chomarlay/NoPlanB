@@ -2,10 +2,11 @@ package com.noplanb.noplanb.fragments.tasks.list
 
 import android.os.Bundle
 import android.view.*
-import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -19,12 +20,12 @@ import com.noplanb.noplanb.data.viewmodel.TaskViewModel
 import com.noplanb.noplanb.databinding.FragmentTodayTaskListBinding
 import com.noplanb.noplanb.fragments.tasks.list.adapter.SwipeToMarkAsCompleted
 import com.noplanb.noplanb.fragments.tasks.list.adapter.TaskListAdapter
-import com.noplanb.noplanb.fragments.tasks.update.UpdateTaskFragmentArgs
 import com.noplanb.noplanb.utils.NpbConstants
 import com.noplanb.noplanb.utils.dueBeforeDate
 import com.noplanb.noplanb.utils.hideKeyboard
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import java.util.*
+
 
 class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val args by navArgs<TodayTaskListFragmentArgs> ()
@@ -32,7 +33,7 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
     private val binding get()=_binding!!
     private val taskViewModel: TaskViewModel by viewModels()
     private val taskListAdapter: TaskListAdapter by lazy { TaskListAdapter() }
-
+    private var fromList = NpbConstants.TASK_LIST_TODAY
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,10 +44,30 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.args = args
 
         setupRecyclerView()
-        taskViewModel.getTasksDueBeforeDate(dueBeforeDate(args.noDays)).observe(viewLifecycleOwner, { data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
+
+        val context = context as AppCompatActivity
+        if (args.noDays==1) {
+            fromList = NpbConstants.TASK_LIST_TODAY
+            context.supportActionBar!!.title =  context.getString(R.string.today)
+        } else {
+            fromList = NpbConstants.TASK_LIST_7DAYS
+            context.supportActionBar!!.title =  context.getString(R.string.next_7_days)
+        }
+
+        taskViewModel.getTasksDueBeforeDate(dueBeforeDate(args.noDays)).observe(
+            viewLifecycleOwner,
+            { data ->
+                taskListAdapter.setData(
+                    data,
+                    fromList
+                )
+            })
 
         binding.addTaskBtn.setOnClickListener{
-            val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToAddTaskFragment(0, NpbConstants.TASK_LIST_TODAY) // pass the projectId to addTaskFragment to set the current project in spinner
+            val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToAddTaskFragment(
+                0,
+                fromList
+            ) // pass the projectId to addTaskFragment to set the current project in spinner
             findNavController().navigate(action)
         }
         // hide soft keyboard
@@ -68,9 +89,9 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
-        recyclerView.itemAnimator = SlideInUpAnimator().apply {
-            addDuration= 300
-        }
+//        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+//            addDuration= 300
+//        }
         swipeToMarkAsCompleted(recyclerView)
     }
 
@@ -88,8 +109,15 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
 
-    private fun searchData (query: String) {
-            taskViewModel.getTasksDueBeforeDateAndTitle(dueBeforeDate(args.noDays),"%${query}%").observe(viewLifecycleOwner, { data-> taskListAdapter.setData(data, NpbConstants.TASK_LIST_TODAY)})
+    private fun searchData(query: String) {
+            taskViewModel.getTasksDueBeforeDateAndTitle(dueBeforeDate(args.noDays), "%${query}%").observe(
+                viewLifecycleOwner,
+                { data ->
+                    taskListAdapter.setData(
+                        data,
+                        fromList
+                    )
+                })
     }
 
     private fun swipeToMarkAsCompleted(recyclerView: RecyclerView) {
@@ -104,7 +132,11 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
                     restoreMarkAsCompleted(viewHolder.itemView, task, viewHolder.adapterPosition)
                 } else {
                     taskListAdapter.notifyItemChanged(viewHolder.adapterPosition)
-                    Toast.makeText(requireContext(), "Task '${task.title}' is already marked as completed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Task '${task.title}' is already marked as completed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
 
@@ -115,7 +147,11 @@ class TodayTaskListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun restoreMarkAsCompleted(view: View, completedTask: Task, position: Int) {
-        val snackBar = Snackbar.make(view, "Task '${completedTask.title}' marked as completed.", Snackbar.LENGTH_LONG)
+        val snackBar = Snackbar.make(
+            view,
+            "Task '${completedTask.title}' marked as completed.",
+            Snackbar.LENGTH_LONG
+        )
         snackBar.setAction("Undo"){
             completedTask.completedDate = null
             taskViewModel.updateTask(completedTask)

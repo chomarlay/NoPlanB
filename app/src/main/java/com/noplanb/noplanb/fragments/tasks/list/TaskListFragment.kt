@@ -172,9 +172,9 @@ class TaskListFragment : Fragment(), SearchView.OnQueryTextListener {
         val recyclerView = binding.taskRecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
         recyclerView.adapter = taskListAdapter
-        recyclerView.itemAnimator = SlideInUpAnimator().apply {
-            addDuration= 300
-        }
+//        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+//            addDuration= 300
+//        }
         swipeToMarkAsCompleted(recyclerView)
     }
 

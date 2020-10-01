@@ -49,7 +49,14 @@ class BindingAdapters {
                 view.setOnClickListener {
                     view.findNavController().navigate(action)
                 }
-            } else {
+            } else if (fromList == NpbConstants.TASK_LIST_7DAYS)  {
+                val action = TodayTaskListFragmentDirections.actionTodayTaskListFragmentToUpdateTaskFragment(
+                    currentItem, fromList
+                )
+                view.setOnClickListener {
+                    view.findNavController().navigate(action)
+                }
+            }else {
                 val action = TaskListFragmentDirections.actionTaskListFragmentToUpdateTaskFragment(
                     currentItem, fromList
                 )

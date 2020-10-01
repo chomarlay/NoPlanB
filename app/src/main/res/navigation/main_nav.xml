@@ -123,6 +123,11 @@
         <argument
             android:name="fromList"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_updateTaskFragment_to_days7TaskListFragment"
+            app:destination="@id/days7TaskListFragment"
+            app:popUpTo="@id/days7TaskListFragment"
+            app:popUpToInclusive="true" />
 
     </fragment>
     <fragment

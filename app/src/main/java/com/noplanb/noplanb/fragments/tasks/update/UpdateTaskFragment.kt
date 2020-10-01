@@ -146,7 +146,11 @@ class UpdateTaskFragment : Fragment() {
                 taskViewModel.updateTask(task)}
 
             if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
-                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment(1)
+                findNavController().navigate(action)
+            } else if(args.fromList == NpbConstants.TASK_LIST_7DAYS) {
+                val action =
+                    UpdateTaskFragmentDirections.actionUpdateTaskFragmentToDays7TaskListFragment(7)
                 findNavController().navigate(action)
             } else {
                 val action =
@@ -179,9 +183,13 @@ class UpdateTaskFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
             if(args.fromList == NpbConstants.TASK_LIST_TODAY) {
-                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment()
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment(1)
                 findNavController().navigate(action)
-            } else {
+            } else if(args.fromList == NpbConstants.TASK_LIST_7DAYS) {
+                val action = UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTodayTaskListFragment(7)
+
+                findNavController().navigate(action)
+            }  else {
                 val action =
                     UpdateTaskFragmentDirections.actionUpdateTaskFragmentToTaskListFragment(
                         mProject.id,
