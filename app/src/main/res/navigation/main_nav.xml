@@ -173,5 +173,34 @@
             app:exitAnim="@anim/to_left"
             app:popEnterAnim="@anim/from_left"
             app:popExitAnim="@anim/to_right" />
+        <argument
+            android:name="noDays"
+            app:argType="integer"
+            android:defaultValue="1"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/days7TaskListFragment"
+        android:name="com.noplanb.noplanb.fragments.tasks.list.TodayTaskListFragment"
+        android:label="Next 7 Days"
+        tools:layout="@layout/fragment_today_task_list">
+        <action
+            android:id="@+id/action_todayTaskListFragment_to_updateTaskFragment"
+            app:destination="@id/updateTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <action
+            android:id="@+id/action_todayTaskListFragment_to_addTaskFragment"
+            app:destination="@id/addTaskFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_right" />
+        <argument
+            android:name="noDays"
+            app:argType="integer"
+            android:defaultValue="7"/>
     </fragment>
 </navigation>

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="args"
+            type="com.noplanb.noplanb.fragments.tasks.list.TodayTaskListFragmentArgs" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
