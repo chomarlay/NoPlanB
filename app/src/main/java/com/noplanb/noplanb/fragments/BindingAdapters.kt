@@ -1,9 +1,11 @@
 package com.noplanb.noplanb.fragments
 
 
+import android.provider.SyncStateContract
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -18,6 +20,7 @@ import com.noplanb.noplanb.fragments.projects.list.adapter.ProjectAdapter
 import com.noplanb.noplanb.fragments.tasks.list.TaskListFragmentDirections
 import com.noplanb.noplanb.fragments.tasks.list.TodayTaskListFragmentDirections
 import com.noplanb.noplanb.utils.NpbConstants
+import com.noplanb.noplanb.utils.isDueDateOverdue
 import java.util.*
 
 
@@ -98,8 +101,37 @@ class BindingAdapters {
                     "${sharedViewModel.formatDate(calendar)}"
                 )
             } else {
-                view.setText ("Schedule")
+                view.text = view.context.getString(R.string.schedule)
             }
         }
+
+        @BindingAdapter("android:showProjectStatus")
+        @JvmStatic
+        fun showProjectStatus(view: TextView, completedDate: Date?)  {
+            if (completedDate != null) {
+                view.visibility= TextView.VISIBLE
+                view.text = view.context.getString(R.string.completed)
+            } else {
+                view.visibility= TextView.GONE
+            }
+        }
+
+        @BindingAdapter("android:showTaskStatus")
+        @JvmStatic
+        fun showTaskStatus(view: TextView, task:Task)  {
+            if (task.completedDate != null) {
+                view.visibility = TextView.VISIBLE
+                view.text = view.context.getString(R.string.completed)
+                view.setTextColor( ContextCompat.getColor(view.context, R.color.colorCompleted))
+            } else if (isDueDateOverdue(task.dueDate)) {
+                view.visibility = TextView.VISIBLE
+                view.text = view.context.getString(R.string.overdue)
+                view.setTextColor( ContextCompat.getColor(view.context, R.color.colorOverdue))
+
+            } else {
+                view.visibility= TextView.GONE
+            }
+        }
+
     }
 }
