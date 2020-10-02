@@ -13,8 +13,6 @@ import com.noplanb.noplanb.data.models.Task
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
 
 @Database(entities = [Project::class, Task::class], version = 1, exportSchema = false)
 @TypeConverters (DateTypeConverter::class)
@@ -24,7 +22,6 @@ abstract class NoPlanBDatabase: RoomDatabase() {
     companion object {
         @Volatile
         private var INSTANCE: NoPlanBDatabase? = null
-
 
         fun getDatabase(context: Context): NoPlanBDatabase =
             INSTANCE ?: synchronized(this) {
@@ -39,15 +36,12 @@ abstract class NoPlanBDatabase: RoomDatabase() {
             )   .fallbackToDestructiveMigration()
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
+                        super.onCreate(db)
                         GlobalScope.launch(Dispatchers.Main) {
                             val noPlanBProject = Project(0,"NoPlanB", "Believe Effort Action Result", null)
                             INSTANCE?.projectDao()?.insertData(noPlanBProject)
                         }
-                        super.onCreate(db)
-
                     }
                 }).build()
     }
-
-
 }
